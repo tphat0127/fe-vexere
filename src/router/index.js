@@ -4,7 +4,25 @@ import { createRouter, createWebHistory } from "vue-router";
 const routes = [
   {
     path: "/",
-    component: () => import("./../views/HomeTemplate")
+    component: () => import("./../views/HomeTemplate"),
+    children: [
+      {
+        path: "/",
+        component: () => import("./../views/HomeTemplate/HomePage"),
+      },
+      {
+        path: "/about",
+        component: () => import("./../views/HomeTemplate/AboutPage"),
+      },
+      {
+        path: "/stations",
+        component: () => import("./../views/HomeTemplate/StationPage"),
+      },
+      {
+        path: "/stations/:stationId",
+        component: () => import("./../views/HomeTemplate/DetailStationPage")
+      }
+    ]
   }
 ];
 

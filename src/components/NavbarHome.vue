@@ -8,13 +8,13 @@
         :style="{ lineHeight: '64px' }"
       >
         <a-menu-item key="1">
-          Trang chủ
+          <router-link to="/">Trang chủ</router-link>
         </a-menu-item>
         <a-menu-item key="2">
-          Station
+           <router-link to="/stations">StationPage</router-link>
         </a-menu-item>
         <a-menu-item key="3">
-          Liên hệ
+          <router-link to="/about">Liên hệ</router-link>
         </a-menu-item>
         <a-menu-item key="4">
           <UserOutlined />Đăng nhập
