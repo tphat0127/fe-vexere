@@ -1,5 +1,6 @@
 <template>
   <NavbarHome />
+  <div style="margin-bottom: 2em"></div>
   <router-view />
 </template>
 
@@ -7,8 +8,8 @@
 import NavbarHome from "./../../components/NavbarHome";
 export default {
   components: {
-    NavbarHome,
-  },
+    NavbarHome
+  }
 };
 </script>
 

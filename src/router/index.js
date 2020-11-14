@@ -23,6 +23,10 @@ const routes = [
         component: () => import("./../views/HomeTemplate/DetailStationPage")
       }
     ]
+  },
+  {
+    path: "/:patchMatch(.*)*",
+    component: () => import("./../views/PageNotFound")
   }
 ];
 

@@ -1,5 +1,5 @@
 <template>
-    <a-row type="flex" justify="center" class="header">
+    <div type="flex" justify="space-around" align="middle" class="header">
       <div class="logo" />
       <a-menu
         theme="light"
@@ -20,7 +20,7 @@
           <UserOutlined />Đăng nhập
         </a-menu-item>
       </a-menu>
-    </a-row>
+    </div>
 </template>
 <script>
 import {UserOutlined} from "@ant-design/icons-vue";
