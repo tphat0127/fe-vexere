@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
-
+import jwtDecode from "jwt-decode";
 
 const routes = [
   {
@@ -23,6 +23,38 @@ const routes = [
         component: () => import("./../views/HomeTemplate/DetailStationPage")
       }
     ]
+  },
+  {
+    path: "/admin",
+    redirect: "/admin/dashboard"
+  },
+  {
+    path: "/admin",
+    component: () => import("./../views/AdminTemplate"),
+    beforeEnter(to, from, next) {
+      if(localStorage.getItem("token")) {
+        try {
+          const user = jwtDecode(localStorage.getItem("token"));
+          if(user.userType === "Admin") {
+            next();
+          }
+        } catch {
+          next("/auth");
+        }
+      } else {
+        next("/auth");
+      }
+    },
+    children: [
+      {
+        path: "/admin/dashboard",
+        component: () => import("./../views/AdminTemplate/DashboardPage")
+      }
+    ]
+  },
+  {
+    path: "/auth",
+    component: () => import("./../views/AdminTemplate/AuthPage")
   },
   {
     path: "/:patchMatch(.*)*",
