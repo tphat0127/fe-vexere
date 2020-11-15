@@ -11,7 +11,7 @@
           <router-link to="/">Trang chủ</router-link>
         </a-menu-item>
         <a-menu-item key="2">
-           <router-link to="/stations">StationPage</router-link>
+           <router-link to="/stations">Bến xe</router-link>
         </a-menu-item>
         <a-menu-item key="3">
           <router-link to="/about">Liên hệ</router-link>

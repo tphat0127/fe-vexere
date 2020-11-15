@@ -4,10 +4,10 @@
   </template>
   <template v-else>
     <a-row :gutter="16" type="flex" justify="center" align="middle">
-      <StationItem 
-      v-for="station in data"
-      :key="station._id"
-      :station="station"
+      <StationItem
+        v-for="station in data"
+        :key="station._id"
+        :station="station"
       />
     </a-row>
   </template>
@@ -16,7 +16,7 @@
 <script>
 import Loader from "./../../../components/Loader";
 import StationItem from "./../../../components/StationItem";
-import * as types from "./../../../store/station/constant"
+import * as types from "./../../../store/station/constant";
 export default {
   components: {
     Loader,
@@ -33,9 +33,7 @@ export default {
       return this.$store.state.station.data;
     }
   }
-}
+};
 </script>
 
-<style>
-
-</style>
+<style></style>
