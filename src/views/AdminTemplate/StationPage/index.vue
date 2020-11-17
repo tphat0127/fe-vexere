@@ -6,7 +6,9 @@
     <template #action="{ record }">
         <a-button type="danger" @click="showConfirm(record._id)">Delete</a-button>
         <a-divider type="vertical" />
-        <a-button>Edit</a-button>
+        <router-link :to="`/admin/stations/${record._id}/edit`">
+          <a-button>Edit</a-button>
+        </router-link>
     </template>
   </a-table>
 </template>
@@ -45,6 +47,12 @@ export default {
         dataIndex: 'name',
         key: 'name',
         slots: { customRender: 'name' },
+      },
+      {
+        title: 'Province',
+        dataIndex: 'province',
+        key: 'province',
+        slots: { customRender: 'province' },
       },
       {
         title: 'Address',
