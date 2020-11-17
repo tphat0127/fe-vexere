@@ -1,5 +1,6 @@
 <template>
-  <a-form
+  <template v-if="loading"><Loader /></template>
+  <a-form v-else
     ref="ruleEditStationForm"
     :model="editStationForm"
     :rules="rules"
@@ -27,9 +28,11 @@
 </template>
 <script>
 import * as types from "./../../../store/modules/constant";
+import Loader from "./../../../components/Loader";
 export default {
   created() {
     this.$store.dispatch(types.A_FETCH_DETAIL_STATION, this.$route.params.stationId);
+    
   },
   data() {
     return {
@@ -66,11 +69,17 @@ export default {
     stationDetail() {
       return this.$store.state.modules.data;
     },
+    loading() {
+      return this.$store.state.modules.loading;
+    }
   },
-  // watch: {
-  //   stationDetail(a) {
-  //     this.editStationForm = a;
-  //   },
-  // },
+  watch: {
+    stationDetail() {
+      this.editStationForm = this.stationDetail;
+    },
+  },
+  components: {
+    Loader
+  }
 };
 </script>
