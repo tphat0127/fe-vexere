@@ -1,7 +1,15 @@
 <template>
-  <NavbarHome />
-  <div style="margin-bottom: 2em"></div>
-  <router-view />
+  <a-layout> 
+      <a-layout-header type="flex" justify="space-around" align="middle">
+        <NavbarHome />
+      </a-layout-header>
+      <a-layout-content
+        :style="{ background: '#fff', padding: '24px', margin: 0, minHeight: '280px' }"
+      >
+        <router-view />
+      </a-layout-content>
+      <a-layout-footer >Footer</a-layout-footer>
+  </a-layout>
 </template>
 
 <script>

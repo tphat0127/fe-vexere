@@ -49,6 +49,10 @@ const routes = [
       {
         path: "/admin/dashboard",
         component: () => import("./../views/AdminTemplate/DashboardPage")
+      },
+      {
+        path: "/admin/stations",
+        component: () => import("./../views/AdminTemplate/StationPage")
       }
     ]
   },

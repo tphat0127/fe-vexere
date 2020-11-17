@@ -1,14 +1,14 @@
 <template>
-  <NavbarHome />
+  <NavbarAdmin />
   <div style="margin-bottom: 2em"></div>
   <router-view />
 </template>
 
 <script>
-import NavbarHome from "./../../components/NavbarHome";
+import NavbarAdmin from "./../../components/NavbarAdmin";
 export default {
   components: {
-    NavbarHome
+    NavbarAdmin
   }
 };
 </script>
