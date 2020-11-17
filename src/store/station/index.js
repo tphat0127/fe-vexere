@@ -30,11 +30,12 @@ const actions = {
 		api.get("/stations")
 			.then((response) => {
 					commit(types.M_STATION_SUCCESS, response.data);
-					console.log(response.data);
 			})
 			.catch((error) => {
 					commit(types.M_STATION_FAILED, error);
-			})
+			});
+		
+			console.log(state.loading)
 	},
 	fetchDetailStation({ commit }, id) {
 		commit(types.M_STATION_REQUEST);

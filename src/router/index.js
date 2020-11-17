@@ -53,6 +53,10 @@ const routes = [
       {
         path: "/admin/stations",
         component: () => import("./../views/AdminTemplate/StationPage")
+      },
+      {
+        path: "/admin/stations/create",
+        component: () => import("./../views/AdminTemplate/CreateStationPage")
       }
     ]
   },

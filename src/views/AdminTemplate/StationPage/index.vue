@@ -1,55 +1,65 @@
 <template>
-  <a-table span="4" :columns="columns" :data-source="data" bordered>
-    <template #name="{text}">
-      <a>{{ text }}</a>
-    </template>
-    <template #action="{ }">
-        <a-button type="danger">Delete</a-button>
+  <router-link to="/admin/stations/create">
+    <a-button>Create</a-button>
+  </router-link>
+  <a-table span="4" :columns="columns" :data-source="data" bordered :loading="$store.state.modules.loading">
+    <template #action="{ record }">
+        <a-button type="danger" @click="showConfirm(record._id)">Delete</a-button>
         <a-divider type="vertical" />
         <a-button>Edit</a-button>
     </template>
   </a-table>
 </template>
 <script>
-const columns = [
-  {
-    title: 'Name',
-    dataIndex: 'name',
-    key: 'name',
-    slots: { customRender: 'name' },
-  },
-  {
-    title: 'Address',
-    dataIndex: 'address',
-    key: 'address 1',
-    ellipsis: true,
-  },
-  {
-    title: 'Action',
-    dataIndex: 'action',
-    key: 'action',
-    slots: { customRender: 'action' }
-  }
-];
-import * as types from "./../../../store/station/constant"
+
+import * as types from "./../../../store/modules/constant";
+import { Modal } from "ant-design-vue";
+import { createVNode } from 'vue';
+import { ExclamationCircleOutlined } from "@ant-design/icons-vue";
 export default {
-    data() {
-        return {
-            columns
-        }
-    },
-    components: {
-    },
-    created() {
-        this.$store.dispatch(types.A_FETCH_LIST_STATION);
-    },
-    computed: {
-        loading() {
-        return this.$store.state.station.loading;
+  created() {
+    this.$store.dispatch(types.A_FETCH_LIST_STATION);
+  },
+  methods: {
+    showConfirm(id) {
+      Modal.confirm({
+        title: "Do you want to delete these items?",
+        content: id,
+        okText: "Delete",
+        icon: createVNode(ExclamationCircleOutlined),
+        onOk: () =>{
+          this.$store.dispatch("actFetchDeleteStation", id);
         },
-        data() {
-        return this.$store.state.station.data;
-        }
+        onCancel() {},
+      });
     }
+  },
+  computed: {
+    data() {
+      return this.$store.state.modules.data;
+    },
+    columns() {
+      return [
+      {
+        title: 'Name',
+        dataIndex: 'name',
+        key: 'name',
+        slots: { customRender: 'name' },
+      },
+      {
+        title: 'Address',
+        dataIndex: 'address',
+        key: 'address',
+        ellipsis: true,
+      },
+      {
+        title: 'Action',
+        dataIndex: 'action',
+        key: 'action',
+        slots: { customRender: 'action' }
+      }
+    ]
+    }
+  }
 }
 </script>
