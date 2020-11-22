@@ -8,15 +8,15 @@ const routes = [
     children: [
       {
         path: "/",
-        component: () => import("./../views/HomeTemplate/HomePage"),
+        component: () => import("./../views/HomeTemplate/HomePage")
       },
       {
         path: "/about",
-        component: () => import("./../views/HomeTemplate/AboutPage"),
+        component: () => import("./../views/HomeTemplate/AboutPage")
       },
       {
         path: "/stations",
-        component: () => import("./../views/HomeTemplate/StationPage"),
+        component: () => import("./../views/HomeTemplate/StationPage")
       },
       {
         path: "/stations/:stationId",
@@ -32,10 +32,10 @@ const routes = [
     path: "/admin",
     component: () => import("./../views/AdminTemplate"),
     beforeEnter(to, from, next) {
-      if(localStorage.getItem("token")) {
+      if (localStorage.getItem("token")) {
         try {
           const user = jwtDecode(localStorage.getItem("token"));
-          if(user.userType === "Admin") {
+          if (user.userType === "Admin") {
             next();
           }
         } catch {
@@ -61,6 +61,10 @@ const routes = [
       {
         path: "/admin/stations/:stationId/edit",
         component: () => import("./../views/AdminTemplate/EditStationPage")
+      },
+      {
+        path: "/admin/trips",
+        component: () => import("./../views/AdminTemplate/TripPage")
       }
     ]
   },

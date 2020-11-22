@@ -1,6 +1,7 @@
 <template>
   <template v-if="loading"><Loader /></template>
-  <a-form v-else
+  <a-form
+    v-else
     ref="ruleEditStationForm"
     :model="editStationForm"
     :rules="rules"
@@ -17,13 +18,13 @@
       <a-input v-model:value="editStationForm.address" />
     </a-form-item>
     <a-form-item :wrapper-col="{ span: 14, offset: 4 }">
-    <a-button type="primary" @click="onSubmit">
-      Edit
-    </a-button>
-    <a-button style="margin-left: 10px;" @click="resetForm">
-      Reset
-    </a-button>
-  </a-form-item>
+      <a-button type="primary" @click="onSubmit">
+        Edit
+      </a-button>
+      <a-button style="margin-left: 10px;" @click="resetForm">
+        Reset
+      </a-button>
+    </a-form-item>
   </a-form>
 </template>
 <script>
@@ -31,8 +32,10 @@ import * as types from "./../../../store/modules/constant";
 import Loader from "./../../../components/Loader";
 export default {
   created() {
-    this.$store.dispatch(types.A_FETCH_DETAIL_STATION, this.$route.params.stationId);
-    
+    this.$store.dispatch(
+      types.A_FETCH_DETAIL_STATION,
+      this.$route.params.stationId
+    );
   },
   data() {
     return {
@@ -44,9 +47,19 @@ export default {
         address: "",
       },
       rules: {
-        name: [{ required: true, message: 'Please input station name', trigger: 'blur' }],
-        province: [{ required: true, message: 'Please input province', trigger: 'blur' }],
-        address: [{ required: true, message: 'Please input address', trigger: 'blur' }],
+        name: [
+          {
+            required: true,
+            message: "Please input station name",
+            trigger: "blur",
+          },
+        ],
+        province: [
+          { required: true, message: "Please input province", trigger: "blur" },
+        ],
+        address: [
+          { required: true, message: "Please input address", trigger: "blur" },
+        ],
       },
     };
   },
@@ -55,10 +68,13 @@ export default {
       this.$refs.ruleEditStationForm
         .validate()
         .then(() => {
-          this.$store.dispatch("actFetchEditStation", { _id: this.$route.params.stationId, station: this.editStationForm});
+          this.$store.dispatch("actFetchEditStation", {
+            _id: this.$route.params.stationId,
+            station: this.editStationForm,
+          });
         })
-        .catch(error => {
-          console.log('error', error);
+        .catch((error) => {
+          console.log("error", error);
         });
     },
     resetForm() {
@@ -71,7 +87,7 @@ export default {
     },
     loading() {
       return this.$store.state.modules.loading;
-    }
+    },
   },
   watch: {
     stationDetail() {
@@ -79,7 +95,7 @@ export default {
     },
   },
   components: {
-    Loader
-  }
+    Loader,
+  },
 };
 </script>
