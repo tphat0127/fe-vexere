@@ -5,9 +5,9 @@
       <a-list-item >
         <a-col :span="6">
           <a-list-item-meta
-            :description="'Nha xe: ' + item.coachId.name">
+            :description="'Nhà xe: ' + item.coachId.name">
             <template #title>
-              Tu {{ item.fromStationId.province }} di {{ item.toStationId.province }}
+              Từ {{ item.fromStationId.province }} đến {{ item.toStationId.province }}
             </template>
             <template #avatar>
               <a-avatar style="color: #f56a00" shape="square" :src="item.coachId.thumbnail" :size="64" /> 
@@ -34,10 +34,10 @@
           </a-list-item-meta>
         </a-col>
         <a-col :span="3">
-          Gia {{ item.price }} VND
+          Giá {{ item.price }} đ
         </a-col>
         <a-col :span="3">
-          <a-button type="primary">Details</a-button>
+          <a-button type="primary">Chi tiết</a-button>
         </a-col>
       </a-list-item>
     </template>

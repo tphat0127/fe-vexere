@@ -8,7 +8,7 @@
       <router-link to="/">Trang chủ</router-link>
     </a-menu-item>
     <a-menu-item key="2">
-        <router-link to="/stations">Bến xe</router-link>
+      <router-link to="/stations">Bến xe</router-link>
     </a-menu-item>
     <a-menu-item key="3">
       <router-link to="/about">Liên hệ</router-link>
@@ -17,15 +17,14 @@
       <UserOutlined />Đăng nhập
     </a-menu-item>
   </a-menu>
-  <Login/>
+  <Login />
 </template>
 <script>
-import {UserOutlined} from "@ant-design/icons-vue";
+import { UserOutlined } from "@ant-design/icons-vue";
 import Login from "./Login";
 export default {
   data() {
-    return {
-    };
+    return {};
   },
   methods: {
     showModal() {

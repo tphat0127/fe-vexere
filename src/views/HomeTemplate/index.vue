@@ -1,8 +1,8 @@
 <template>
   <a-layout> 
-      <a-layout-header type="flex" justify="space-around" align="middle">
+      <div type="flex" justify="space-around" align="middle">
         <NavbarHome />
-      </a-layout-header>
+      </div>
       <a-layout-content
         :style="{ background: '#fff', padding: '24px', margin: 0, minHeight: '280px' }"
       >

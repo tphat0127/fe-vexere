@@ -21,8 +21,8 @@ import { PieChartOutlined, FileOutlined } from "@ant-design/icons-vue";
 export default {
   components: {
     PieChartOutlined,
-    FileOutlined,
-  },
+    FileOutlined
+  }
 };
 </script>
 

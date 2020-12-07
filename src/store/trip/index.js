@@ -1,9 +1,11 @@
 import { api } from "../../api";
 import * as types from "./constant";
+import router from "../../router";
 const state = {
   loading: false,
   data: null,
-  error: null
+  error: null,
+  stationData: null
 };
 
 const mutations = {
@@ -17,7 +19,7 @@ const mutations = {
     state.data = payload;
     state.error = null;
   },
-  [types.M_TRIP_FAILED](state, payload) {
+  [types.M_TRIP_FAILURE](state, payload) {
     state.loading = false;
     state.data = null;
     state.error = payload;
@@ -34,7 +36,19 @@ const actions = {
         //console.log(state.loading);
       })
       .catch(error => {
-        commit(types.M_TRIP_FAILED, error);
+        commit(types.M_TRIP_FAILURE, error);
+      });
+  },
+  actFetchCreateTrip({ commit }, trip) {
+    commit(types.M_TRIP_REQUEST);
+    api
+      .post("/trips", trip)
+      .then(response => {
+        commit(types.M_TRIP_SUCCESS, response.data);
+        router.replace("/admin/trips");
+      })
+      .catch(error => {
+        commit(types.M_TRIP_FAILURE, error);
       });
   }
 };

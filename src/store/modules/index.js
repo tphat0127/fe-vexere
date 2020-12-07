@@ -1,4 +1,4 @@
-import { api } from "./../../api";
+import { api } from "../../api";
 import router from "../../router";
 import * as types from "./constant";
 

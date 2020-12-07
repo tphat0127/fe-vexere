@@ -65,6 +65,10 @@ const routes = [
       {
         path: "/admin/trips",
         component: () => import("./../views/AdminTemplate/TripPage")
+      },
+      {
+        path: "/admin/trips/create",
+        component: () => import("./../views/AdminTemplate/CreateTripPage")
       }
     ]
   },
