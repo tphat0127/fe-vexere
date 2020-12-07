@@ -33,7 +33,6 @@ const actions = {
       .get("/trips")
       .then(response => {
         commit(types.M_TRIP_SUCCESS, response.data);
-        //console.log(state.loading);
       })
       .catch(error => {
         commit(types.M_TRIP_FAILURE, error);
@@ -46,6 +45,17 @@ const actions = {
       .then(response => {
         commit(types.M_TRIP_SUCCESS, response.data);
         router.replace("/admin/trips");
+      })
+      .catch(error => {
+        commit(types.M_TRIP_FAILURE, error);
+      });
+  },
+  actFetchDeleteTrip({ commit, dispatch }, id) {
+    commit(types.M_TRIP_REQUEST);
+    api
+      .delete(`/trips/${id}`)
+      .then(() => {
+        dispatch(types.A_FETCH_LIST_TRIP);
       })
       .catch(error => {
         commit(types.M_TRIP_FAILURE, error);
