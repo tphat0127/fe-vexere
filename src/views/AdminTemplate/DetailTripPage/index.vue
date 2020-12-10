@@ -1,25 +1,32 @@
 <template>
-  <router-link to="/admin/trips/create">
-    <a-button>Tạo chuyến đi</a-button>
-  </router-link>
   <template v-if="loading"><Loader /></template>
-  <a-list item-layout="horizontal" v-else>
+  <template v-else>
+    <a-list item-layout="horizontal">
     <TripItem v-for="trip in data"
       :key="trip._id"
       :trip="trip"/>
   </a-list>
+  <SeatList :trip_seats="data"/>
+  </template>
 </template>
+
 <script>
-import TripItem from "./../../../components/TripItem"
 import * as types from "./../../../store/trip/constant";
 import Loader from "./../../../components/Loader";
+import TripItem from "./../../../components/TripItem";
+import SeatList from "./../../../components/SeatList";
 export default {
   created() {
-    this.$store.dispatch(types.A_FETCH_LIST_TRIP);
+    this.$store.dispatch(
+      types.A_FETCH_DETAIL_TRIP,
+      this.$route.params.tripId
+    );
   },
   computed: {
     data() {
-      return this.$store.state.trip.data;
+      let arr = [];
+      arr.push(this.$store.state.trip.data);
+      return arr;
     },
     loading() {
       return this.$store.state.trip.loading;
@@ -27,12 +34,10 @@ export default {
   },
   components: {
     Loader,
-    TripItem
+    TripItem,
+    SeatList
   }
 };
 </script>
-<style>
-.ant-list-item-meta-title {
-  font-weight: bold !important;
-}
-</style>
+
+<style></style>

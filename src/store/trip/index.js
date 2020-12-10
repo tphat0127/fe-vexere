@@ -60,7 +60,18 @@ const actions = {
       .catch(error => {
         commit(types.M_TRIP_FAILURE, error);
       });
-  }
+  },
+  [types.A_FETCH_DETAIL_TRIP]({ commit }, id) {
+    commit(types.M_TRIP_REQUEST);
+    api
+      .get(`/trips/${id}`)
+      .then((response) => {
+        commit(types.M_TRIP_SUCCESS, response.data);
+      })
+      .catch((error) => {
+        commit(types.M_TRIP_FAILURE, error);
+      });
+  },
 };
 
 export default { state, mutations, actions };

@@ -5,3 +5,4 @@ export const M_TRIP_FAILURE = "trip/M_TRIP_FAILURE";
 
 //ACTION
 export const A_FETCH_LIST_TRIP = "trip/A_FETCH_LIST_TRIP";
+export const A_FETCH_DETAIL_TRIP = "trip/A_FETCH_DETAIL_TRIP";

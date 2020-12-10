@@ -24,7 +24,7 @@
 <script>
 import { EnvironmentOutlined } from "@ant-design/icons-vue";
 export default {
-	 props: ["station"],
+	props: ["station"],
     components: {
         EnvironmentOutlined
 	 },

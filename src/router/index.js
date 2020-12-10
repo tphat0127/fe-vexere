@@ -69,6 +69,10 @@ const routes = [
       {
         path: "/admin/trips/create",
         component: () => import("./../views/AdminTemplate/CreateTripPage")
+      },
+      {
+        path: "/admin/trips/:tripId/detail",
+        component: () => import("./../views/AdminTemplate/DetailTripPage")
       }
     ]
   },
