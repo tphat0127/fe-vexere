@@ -1,24 +1,18 @@
 <template>
-  <a-layout> 
-      <div type="flex" justify="space-around" align="middle">
-        <NavbarHome />
-      </div>
-      <a-layout-content
-        :style="{ background: '#fff', padding: '24px', margin: 0, minHeight: '280px' }"
-      >
-        <router-view />
-      </a-layout-content>
-      <a-layout-footer >Footer</a-layout-footer>
-  </a-layout>
+  <Navbar/>
+  <router-view />
 </template>
 
 <script>
-import NavbarHome from "./../../components/NavbarHome";
+import Navbar from "../../components/NavbarHome";
 export default {
   components: {
-    NavbarHome
+    Navbar
   }
-};
+}
 </script>
 
-<style></style>
+<style>
+
+</style>
+

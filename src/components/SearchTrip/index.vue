@@ -1,52 +1,62 @@
 <template>
-    <a-select v-model:value="from" style="width: 120px" @change="handleChange">
-        <template #suffixIcon><EnvironmentOutlined /></template>
-        <a-select-opt-group label="Province">
-            <a-select-option value="hcm">Ho Chi Minh</a-select-option>
-            <a-select-option value="hanoi">Ha Noi</a-select-option>
-        </a-select-opt-group>
-    </a-select>
-    <a-select :open="isOpen" v-model:value="to" style="width: 120px" @change="handleChange2">
-        <template #suffixIcon><EnvironmentOutlined /></template>
-        <a-select-opt-group label="Province">
-            <a-select-option value="hcm">Ho Chi Minh</a-select-option>
-            <a-select-option value="hanoi">Ha Noi</a-select-option>
-        </a-select-opt-group>
-    </a-select>
-    <a-date-picker v-model:value="date" @change="onChange" />
-    <a-button :loading="true"> 
-        <template #icon><SearchOutlined /></template>Search
-    </a-button>
+  <div>
+    <!-- Diem di -->
+    <a-form-item>
+      <a-select
+        style="width: 240px"
+        v-model:value="searchTripForm.fromStationId"
+      >
+        <a-select-option v-for="s in listStations" :key="s" :value="s._id">
+          {{ s.province }}
+        </a-select-option>
+      </a-select>
+    </a-form-item>
+    <!-- Diem den -->
+    <a-form-item>
+      <a-select style="width: 240px" v-model:value="searchTripForm.toStationId">
+        <a-select-option v-for="s in listStations" :key="s" :value="s._id">
+          {{ s.province }}
+        </a-select-option>
+      </a-select>
+    </a-form-item>
+    <a-form-item>
+      <a-button @click="handleSearchTrip" :loading="$store.state.trip.loading"
+        >Tim</a-button
+      >
+    </a-form-item>
+  </div>
 </template>
 
 <script>
-import { EnvironmentOutlined, SearchOutlined} from "@ant-design/icons-vue";
+import * as types from "./../../store/modules/constant";
+import * as typesTrip from "./../../store/trip/constant";
 export default {
-    data() {
-        return {
-            date: null,
-            isOpen: false,
-        };
+  created() {
+    this.$store.dispatch(types.A_FETCH_LIST_STATION);
+  },
+  data() {
+    return {
+      searchTripForm: {
+        fromStationId: "",
+        toStationId: ""
+      },
+    };
+  },
+  methods: {
+    handleSearchTrip() {
+      this.$store.dispatch(typesTrip.A_FETCH_SEARCH_TRIP, this.searchTripForm);
     },
-    components: {
-        EnvironmentOutlined,
-        SearchOutlined
+  },
+  computed: {
+    listStations() {
+      return this.$store.state.modules.data;
     },
-    methods: {
-        onChange(date, dateString) {
-            this.date = date;
-            console.log(date, dateString);
-        },
-        handleChange() {
-            this.isOpen = true;
-        },
-        handleChange2() {
-            this.isOpen = false;
-        }
-    },
-}
+    result() {
+        console.log(this.$store.state.trip.data);
+        return this.$store.state.trip.data;
+    }
+  },
+};
 </script>
 
-<style>
-
-</style>
+<style></style>

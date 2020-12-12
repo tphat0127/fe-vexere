@@ -27,6 +27,18 @@ const mutations = {
 };
 
 const actions = {
+  [types.A_FETCH_SEARCH_TRIP]({ commit }, data) {
+    commit(types.M_TRIP_REQUEST);
+    api
+      .get(`/trips/${data.fromStationId}/${data.toStationId}`)
+      .then((response) => {
+        commit(types.M_TRIP_SUCCESS, response.data);
+        router.replace("/result");
+      })
+      .catch((error) => {
+        commit(types.M_TRIP_FAILURE, error);
+      });
+  },
   [types.A_FETCH_LIST_TRIP]({ commit }) {
     commit(types.M_TRIP_REQUEST);
     api

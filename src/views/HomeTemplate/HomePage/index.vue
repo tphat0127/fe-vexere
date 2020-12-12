@@ -1,16 +1,16 @@
 <template>
-  <a-row type="flex" justify="center" align="middle">
-    <SearchTrip />
-  </a-row>
+  <Banner />
 </template>
 
 <script>
-import SearchTrip from "./../../../components/SearchTrip";
+import Banner from "./../../../components/BannerHome";
 export default {
-  components: {
-    SearchTrip
+components: {
+    Banner
   }
-};
+}
 </script>
 
-<style></style>
+<style>
+
+</style>

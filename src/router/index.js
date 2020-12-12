@@ -21,6 +21,10 @@ const routes = [
       {
         path: "/stations/:stationId",
         component: () => import("./../views/HomeTemplate/DetailStationPage")
+      },
+      {
+        path: "/result",
+        component: () => import("./../views/HomeTemplate/ResultSearchTripPage")
       }
     ]
   },
