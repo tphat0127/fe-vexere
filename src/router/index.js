@@ -23,7 +23,7 @@ const routes = [
         component: () => import("./../views/HomeTemplate/DetailStationPage")
       },
       {
-        path: "/result",
+        path: "/result/:fromStationId/:toStationId/:startTime",
         component: () => import("./../views/HomeTemplate/ResultSearchTripPage")
       }
     ]

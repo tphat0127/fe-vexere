@@ -44,7 +44,7 @@ export default {
   },
   components: {
     UserOutlined,
-    Login
+    Login,
   },
 };
 </script>
@@ -52,7 +52,7 @@ export default {
 .header {
   background: #fff;
   width: 100%;
-  z-index: 1;
+  z-index: 0;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
   position: relative;
   top: 0;
