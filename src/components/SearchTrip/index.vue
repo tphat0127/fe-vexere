@@ -1,48 +1,42 @@
-//ngay hien tai
 <template>
   <template v-if="$store.state.modules.loading"></template>
   <template v-else>
-    <a-form>
+    <a-form style="box-shadow: 0 0 100px rgba(0,0,0,.08);">
       <a-input-group compact>
         <a-auto-complete
-          default-value="Nơi đi"
+          :default-value="defaultFromValue"
           @select="onSelectFromStation"
           :options="options"
-          style="width: 15%"
         >
           <a-input>
             <template #prefix
-              ><EnvironmentFilled :style="{fontSize: '1em', color: '#08c'}"
+              ><EnvironmentFilled :style="{ fontSize: '1em', color: '#08c' }"
             /></template>
           </a-input>
         </a-auto-complete>
         <a-auto-complete
-          default-value="Điểm đến"
+          :default-value="defaultToValue"
           @select="onSelectToStation"
           :options="options"
-          style="width: 15%"
-          :open="isOpenSelectToStation"
         >
-        <a-input>
+          <a-input>
             <template #prefix
-              ><EnvironmentFilled :style="{fontSize: '1em', color: '#08c'}"
+              ><EnvironmentFilled :style="{ fontSize: '1em', color: '#08c' }"
             /></template>
           </a-input>
         </a-auto-complete>
-        <a-date-picker style="width: 13%"
-        show-time
-        @change="handlePickStartTimeChange" 
-        @ok="handlePickStartTimeOk" 
-        :default-value="moment(getCurrentTime, dateFormat)" 
-        :format="dateFormat"
-        :open="isDateTime">
-           
-        </a-date-picker>
+        <a-date-picker
+          show-time
+          @change="handlePickStartTimeChange"
+          @ok="handlePickStartTimeOk"
+          :default-value="moment(getCurrentTime, dateFormat)"
+          :format="dateFormat"
+        />
         <a-button
-        type="danger"
+          class="btn-size"
+          type="danger"
           @click="handleOnClickSearchTrip"
           :loading="$store.state.trip.loading"
-          style="width: 12%"
           >TÌM</a-button
         >
       </a-input-group>
@@ -52,55 +46,84 @@
 <script>
 import * as types from "./../../store/modules/constant";
 import * as typesTrip from "./../../store/trip/constant";
-import { EnvironmentFilled,  } from "@ant-design/icons-vue";
-import moment from 'moment';
+import { EnvironmentFilled } from "@ant-design/icons-vue";
+import moment from "moment";
 export default {
   created() {
     this.$store.dispatch(types.A_FETCH_LIST_STATION);
   },
   components: {
     EnvironmentFilled,
-    
   },
   data() {
     return {
       searchTripForm: {
-        fromStationId: "",
-        toStationId: "",
-        province: "",
-        startTime: null
+        fromProvince: "",
+        toProvince: "",
+        startTime: null,
       },
-      isOpenSelectToStation: null,
-      isDateTime: false,
+      isOpen: {
+        selectFromStation: null,
+        selectToStation: null,
+        pickStartTime: null,
+      },
       getCurrentTime: moment(),
-      dateFormat: 'DD/MM/YYY',
+      dateFormat: "DD/MM/YYY",
+      defaultFromValue:
+        JSON.parse(localStorage.getItem("tripSearchData")) !== null
+          ? JSON.parse(localStorage.getItem("tripSearchData")).fromProvince
+          : "Noi di",
+      defaultToValue:
+        JSON.parse(localStorage.getItem("tripSearchData")) !== null
+          ? JSON.parse(localStorage.getItem("tripSearchData")).toProvince
+          : "Diem den",
     };
   },
   methods: {
     handleOnClickSearchTrip() {
-      this.$store.dispatch(typesTrip.A_FETCH_SEARCH_TRIP, this.searchTripForm);
-    },
 
+    this.$store.dispatch(typesTrip.A_FETCH_SEARCH_TRIP);
+    this.$router.push('/result');
+    },
     onSelectFromStation(value, option) {
-      this.isOpenSelectToStation = true;
-      this.searchTripForm.fromStationId = option.id;
+      //this.isOpenSelectToStation = true;
+      this.searchTripForm.fromProvince = option.value;
+      localStorage.setItem(
+        "tripSearchData",
+        JSON.stringify(this.searchTripForm)
+      );
     },
     onSelectToStation(value, option) {
-      this.isOpenSelectToStation = !this.isOpenSelectToStation;
-      this.isDateTime = !this.isDateTime;
-      this.searchTripForm.toStationId = option.id;
+      // this.isOpenSelectToStation = !this.isOpenSelectToStation;
+      // this.isDateTime = !this.isDateTime;
+      this.searchTripForm.toProvince = option.value;
+      localStorage.setItem(
+        "tripSearchData",
+        JSON.stringify(this.searchTripForm)
+      );
     },
     handlePickStartTimeChange(startTime, dateString) {
-      console.log('Selected Time: ', startTime);
-      console.log('Formatted Selected Time: ', dateString);
+      console.log("Selected Time: ", startTime);
+      console.log("Formatted Selected Time: ", dateString);
+      //Auto open
+      // this.isOpen.pickStartTime = false;
+      // if(!this.defaultFromValue) {
+      //   this.isOpen.selectFromStation = true;
+      // }
+      // console.log( this.isOpen.selectFromStation)
+      /////////////////
+      this.searchTripForm.startTime = dateString;
+      localStorage.setItem(
+        "tripSearchData",
+        JSON.stringify(this.searchTripForm)
+      );
     },
     handlePickStartTimeOk(value) {
-      console.log('onOk: ', value);
+      console.log("onOk: ", value);
       this.searchTripForm.startTime = value;
-      this.$store.dispatch(typesTrip.A_FETCH_SEARCH_TRIP, this.searchTripForm);
-      this.isDateTime = !this.isDateTime;
+      this.handleOnClickSearchTrip();
     },
-    moment
+    moment,
   },
   computed: {
     listStations() {
@@ -122,17 +145,18 @@ export default {
 .ant-input {
   font-size: 18px;
 }
-.ant-btn {
+.btn-size {
   font-size: 18px;
   height: 47px;
+  width: 120px !important;
 }
 .ant-input-affix-wrapper {
   font-size: 24px;
 }
 .ant-select-single .ant-select-selector .ant-select-selection-search-input {
-    text-align: center;
+  text-align: center;
 }
 .ant-calendar-picker-input.ant-input {
-    height: 47px;
+  height: 47px;
 }
 </style>

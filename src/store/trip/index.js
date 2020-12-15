@@ -27,13 +27,12 @@ const mutations = {
 };
 
 const actions = {
-  [types.A_FETCH_SEARCH_TRIP]({ commit }, data) {
+  [types.A_FETCH_SEARCH_TRIP]({ commit }) {
     commit(types.M_TRIP_REQUEST);
     api
       .get("/trips")
       .then((response) => {
         commit(types.M_TRIP_SUCCESS, response.data);
-        router.replace(`/result/${data.fromStationId}/${data.toStationId}/${data.startTime}`);
       })
       .catch((error) => {
         commit(types.M_TRIP_FAILURE, error);
