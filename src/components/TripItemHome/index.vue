@@ -53,15 +53,19 @@
     </a-col>
     <a-col :span="4">
       <b style="color: blue; font-size: 24px">{{ trip.price }} d</b>
-      <a-button type="primary" @click="showConfirm(trip._id)"
-        >Đặt vé</a-button
+      <a-button 
+        :type="isShowBookForm == false ? `primary` : `success`" 
+        @click="showConfirm(trip._id)"
+        >{{isShowBookForm == false ? "Đặt vé" : "Đóng"}}</a-button
       >
     </a-col>
   </a-list-item>
-  <a-list-item v-show="isShowBookForm">sdcs</a-list-item>
+
+  <a-list-item v-show="isShowBookForm"><Booking :bookTrip="trip"/></a-list-item>
 </template>
 <script>
 import moment from "moment";
+import Booking from "./../Booking"
 // import { Modal } from "ant-design-vue";
 // import { createVNode } from "vue";
 // import { ExclamationCircleOutlined } from "@ant-design/icons-vue";
@@ -85,10 +89,13 @@ export default {
       //   },
       //   onCancel() {},
       // });
-      this.isShowBookForm= true;
+      this.isShowBookForm= !this.isShowBookForm;
 
     },
   },
+  components: {
+    Booking
+  }
 };
 </script>
 <style></style>

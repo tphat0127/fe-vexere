@@ -1,6 +1,6 @@
 import { api } from "./../../api";
 import * as types from "./constant";
-import router from "../../router";
+//import router from "../../router";
 //import jwtDecode from "jwt-decode";
 
 const state = {
@@ -46,10 +46,8 @@ const actions = {
         })
         .then(response => {
             commit(types.M_LOGIN_SUCCESS, response.data.token);
-
             localStorage.setItem("token", response.data.token);
-            console.log(response.data.token);
-            router.replace("/");
+            //router.replace("/");
         })
         .catch(error => {
             commit(types.M_LOGIN_FAILED, error);

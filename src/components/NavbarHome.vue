@@ -2,7 +2,7 @@
   <header class="header home-page-wrapper" style="opacity: 1;">
     <div class="home-page">
       <div class="header-logo" style="transform: translate(0px, 0px);">
-        LOGO HERE
+        LOGO HEREe
       </div>
       <div class="header-menu">
         <a-menu
@@ -19,32 +19,28 @@
           <a-menu-item key="3">
             <router-link to="/about">Liên hệ</router-link>
           </a-menu-item>
-          <a-menu-item key="4" @click="showModal">
+          <a-menu-item key="4">
             <UserOutlined />Đăng nhập
           </a-menu-item>
         </a-menu>
       </div>
     </div>
   </header>
-
-  <Login />
 </template>
 //
 <script>
 import { UserOutlined } from "@ant-design/icons-vue";
-import Login from "./Login";
+//import Login from "./Login";
 export default {
   data() {
     return {};
   },
   methods: {
-    showModal() {
-      this.$store.dispatch("actHandleLogin");
-    },
+   
   },
   components: {
     UserOutlined,
-    Login,
+    //Login,
   },
 };
 </script>

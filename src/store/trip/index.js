@@ -31,10 +31,10 @@ const actions = {
     commit(types.M_TRIP_REQUEST);
     api
       .get("/trips")
-      .then((response) => {
+      .then(response => {
         commit(types.M_TRIP_SUCCESS, response.data);
       })
-      .catch((error) => {
+      .catch(error => {
         commit(types.M_TRIP_FAILURE, error);
       });
   },
@@ -76,13 +76,13 @@ const actions = {
     commit(types.M_TRIP_REQUEST);
     api
       .get(`/trips/${id}`)
-      .then((response) => {
+      .then(response => {
         commit(types.M_TRIP_SUCCESS, response.data);
       })
-      .catch((error) => {
+      .catch(error => {
         commit(types.M_TRIP_FAILURE, error);
       });
-  },
+  }
 };
 
 export default { state, mutations, actions };

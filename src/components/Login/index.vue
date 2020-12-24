@@ -1,54 +1,28 @@
 <template>
   <a-row type="flex" justify="center" align="middle">
-    <a-col v-if="loading"><Loader /></a-col>
-    <a-col v-else>
-      <a-modal
-        v-model:visible="this.$store.state.login.modal_visible"
-        title="Đăng nhập"
-      >
-        <a-alert
-          v-if="error"
-          type="error"
-          :message="error.response.data.message"
-          banner
-        />
-        <a-form layout="inline" :model="formInline">
-          <a-form-item>
-            <a-input v-model:value="formInline.email" placeholder="Username">
-              <template #prefix
-                ><UserOutlined style="color:rgba(0,0,0,.25)"
-              /></template>
-            </a-input>
-          </a-form-item>
-          <a-form-item>
-            <a-input
-              v-model:value="formInline.password"
-              type="password"
-              placeholder="Password"
-            >
-              <template #prefix
-                ><LockOutlined style="color:rgba(0,0,0,.25)"
-              /></template>
-            </a-input>
-          </a-form-item>
-        </a-form>
-        <template #footer>
+    <a-alert v-if="error" type="error" :message="error.response.data.message" banner />
+    <a-form layout="vertical" @submit.prevent="handleSubmit">
+      <a-form-item>
+          <a-input v-model:value="formInline.email" placeholder="Username" />
+      </a-form-item>
+      <a-form-item>
+          <a-input v-model:value="formInline.password" type="password" placeholder="Password" />
+      </a-form-item>
+      <a-form-item>
           <a-button
-            type="primary"
-            html-type="submit"
-            @click.prevent="handleSubmit"
+          type="primary"
+          html-type="submit"
+          :disabled="formInline.user === '' || formInline.password === ''"
+          :loading="loading"
           >
-            Log in
+          Log in
           </a-button>
-        </template>
-      </a-modal>
-    </a-col>
+      </a-form-item>
+    </a-form>
   </a-row>
 </template>
 
 <script>
-import { UserOutlined, LockOutlined } from "@ant-design/icons-vue";
-import Loader from "../Loader";
 import * as types from "./../../store/login/constant";
 export default {
   data() {
@@ -77,9 +51,6 @@ export default {
     }
   },
   components: {
-    UserOutlined,
-    LockOutlined,
-    Loader
   }
 };
 </script>

@@ -53,19 +53,19 @@ export default {
     this.$store.dispatch(types.A_FETCH_LIST_STATION);
   },
   components: {
-    EnvironmentFilled,
+    EnvironmentFilled
   },
   data() {
     return {
       searchTripForm: {
         fromProvince: "",
         toProvince: "",
-        startTime: null,
+        startTime: null
       },
       isOpen: {
         selectFromStation: null,
         selectToStation: null,
-        pickStartTime: null,
+        pickStartTime: null
       },
       getCurrentTime: moment(),
       dateFormat: "DD/MM/YYY",
@@ -76,14 +76,13 @@ export default {
       defaultToValue:
         JSON.parse(localStorage.getItem("tripSearchData")) !== null
           ? JSON.parse(localStorage.getItem("tripSearchData")).toProvince
-          : "Diem den",
+          : "Diem den"
     };
   },
   methods: {
     handleOnClickSearchTrip() {
-
-    this.$store.dispatch(typesTrip.A_FETCH_SEARCH_TRIP);
-    this.$router.push('/result');
+      this.$store.dispatch(typesTrip.A_FETCH_SEARCH_TRIP);
+      this.$router.push("/result");
     },
     onSelectFromStation(value, option) {
       //this.isOpenSelectToStation = true;
@@ -123,22 +122,22 @@ export default {
       this.searchTripForm.startTime = value;
       this.handleOnClickSearchTrip();
     },
-    moment,
+    moment
   },
   computed: {
     listStations() {
       return this.$store.state.modules.data;
     },
     options() {
-      return this.listStations.map((o) =>
+      return this.listStations.map(o =>
         //ant: autocomple - optionLableProp bi loi =>
         Object.assign({}, o, {
           value: o.province,
-          id: o._id,
+          id: o._id
         })
       );
-    },
-  },
+    }
+  }
 };
 </script>
 <style>
@@ -148,7 +147,7 @@ export default {
 .btn-size {
   font-size: 18px;
   height: 47px;
-  width: 120px !important;
+  width: 130px !important;
 }
 .ant-input-affix-wrapper {
   font-size: 24px;

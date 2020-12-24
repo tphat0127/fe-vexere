@@ -25,6 +25,7 @@ export default {
         seat: this.seat,
       };
       this.$emit("event-book", obj);
+      console.log(obj)
     },
   },
 
@@ -40,14 +41,12 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 .seat {
   background-color: gray;
   color: white;
   width: 44px;
-  margin: 5px;
 }
-
 .seatSelect {
   background-color: green;
 }
