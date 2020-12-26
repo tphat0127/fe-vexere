@@ -2,7 +2,7 @@
   <header class="header home-page-wrapper" style="opacity: 1;">
     <div class="home-page">
       <div class="header-logo" style="transform: translate(0px, 0px);">
-        LOGO HEREe
+        LOGO HERE
       </div>
       <div class="header-menu">
         <a-menu
@@ -19,28 +19,53 @@
           <a-menu-item key="3">
             <router-link to="/about">Liên hệ</router-link>
           </a-menu-item>
-          <a-menu-item key="4">
-            <UserOutlined />Đăng nhập
+          <a-menu-item key="4" @click="click">
+            <UserOutlined /> <span v-if="!isLoggedIn">Đăng nhập</span> <span v-else>Logout</span>
           </a-menu-item>
         </a-menu>
       </div>
     </div>
   </header>
+  <a-modal v-model:visible="modal_visible" title="Đăng nhập" :footer="null" v-if="!isLoggedIn">
+   <Login />
+  </a-modal>
 </template>
-//
 <script>
 import { UserOutlined } from "@ant-design/icons-vue";
-//import Login from "./Login";
+import Login from "./Login";
+import { message } from 'ant-design-vue';
 export default {
   data() {
-    return {};
+    return {
+      modal_visible: false,
+    }
   },
   methods: {
-   
+    click() {
+      if(!this.isLoggedIn){
+        this.showModal();
+      }
+      else {
+        this.handleLogOut();
+      }
+    },
+    showModal() {
+      this.$store.dispatch("actHandleLogin")
+      this.modal_visible = true;
+    },
+    handleLogOut() {
+      this.$store.dispatch("actUserLogout")
+      message.success('Đã đăng xuất');
+    }
+  },
+  computed: {
+    isLoggedIn() {
+      return this.$store.state.user.isLoggedIn;
+    }
   },
   components: {
     UserOutlined,
-    //Login,
+    Login,
   },
 };
 </script>

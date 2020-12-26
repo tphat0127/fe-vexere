@@ -54,21 +54,18 @@
     <a-col :span="4">
       <b style="color: blue; font-size: 24px">{{ trip.price }} d</b>
       <a-button 
-        :type="isShowBookForm == false ? `primary` : `success`" 
+        :type="isShowBookForm == false ? `danger` : `success`" 
         @click="showConfirm(trip._id)"
         >{{isShowBookForm == false ? "Đặt vé" : "Đóng"}}</a-button
       >
     </a-col>
   </a-list-item>
 
-  <a-list-item v-show="isShowBookForm"><Booking :bookTrip="trip"/></a-list-item>
+  <a-list-item v-if="isShowBookForm"><Booking :bookTrip="trip"/></a-list-item>
 </template>
 <script>
 import moment from "moment";
 import Booking from "./../Booking"
-// import { Modal } from "ant-design-vue";
-// import { createVNode } from "vue";
-// import { ExclamationCircleOutlined } from "@ant-design/icons-vue";
 export default {
   props: ["trip"],
   data() {
@@ -79,18 +76,7 @@ export default {
   methods: {
     moment,
     showConfirm() {
-      // Modal.confirm({
-      //   title: "Xác nhận xóa chuyến đi này?",
-      //   content: id,
-      //   okText: "Delete",
-      //   icon: createVNode(ExclamationCircleOutlined),
-      //   onOk: () => {
-      //     this.$store.dispatch("actFetchDeleteTrip", id);
-      //   },
-      //   onCancel() {},
-      // });
       this.isShowBookForm= !this.isShowBookForm;
-
     },
   },
   components: {

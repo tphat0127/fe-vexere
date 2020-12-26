@@ -1,58 +1,100 @@
 <template>
   <a-row type="flex" justify="center" align="middle">
-    <a-alert v-if="error" type="error" :message="error.response.data.message" banner />
-    <a-form layout="vertical" @submit.prevent="handleSubmit">
+    <a-form
+      ref="ruleForm"
+      :model="form"
+      :rules="rules"
+      :label-col="labelCol" :wrapper-col="wrapperCol"
+    >
       <a-form-item>
-          <a-input v-model:value="formInline.email" placeholder="Username" />
+        <a-alert
+          v-if="error"
+          type="error"
+          :message="error.response.data.message"
+          banner
+        />
       </a-form-item>
-      <a-form-item>
-          <a-input v-model:value="formInline.password" type="password" placeholder="Password" />
+      <a-form-item ref="email" label="Email" name="email">
+        <a-input v-model:value="form.email" />
       </a-form-item>
-      <a-form-item>
-          <a-button
-          type="primary"
-          html-type="submit"
-          :disabled="formInline.user === '' || formInline.password === ''"
-          :loading="loading"
-          >
-          Log in
-          </a-button>
+      <a-form-item ref="password" label="Mật khẩu" name="password">
+        <a-input v-model:value="form.password" type="password" />
+      </a-form-item>
+
+      <a-form-item :wrapper-col="{ span: 14, offset: 4 }">
+        <a-button @click="onSubmit" type="primary" html-type="submit" :loading="loading">
+          Login
+        </a-button>
+
+        <a-button type="link" @click="showModal">
+          Đăng ký
+        </a-button>
       </a-form-item>
     </a-form>
   </a-row>
+  <a-modal v-model:visible="modal_visible" title="Đăng ký" :footer="null" v-if="!isLoggedIn">
+    <Register />
+  </a-modal>
 </template>
-
 <script>
-import * as types from "./../../store/login/constant";
+import * as types from "./../../store/user/constant";
+import Register from "./../Register";
 export default {
   data() {
     return {
-      formInline: {
+      modal_visible: false,
+      labelCol: { span: 6 },
+      wrapperCol: { span: 16 },
+      form: {
         email: "",
-        password: ""
-      }
+        password: "",
+      },
+      rules: {
+        email: [
+          { required: true, message: "Chưa nhập email", trigger: "blur" },
+          {
+            required: true,
+            message: "Email không hợp lệ ",
+            trigger: "blur",
+            type: "email",
+          },
+        ],
+        password: {
+          required: true,
+          message: "Chưa nhập mật khẩu",
+          trigger: "blur",
+        },
+      },
     };
   },
   methods: {
-    handleSubmit() {
-      const user = {
-        email: this.formInline.email,
-        password: this.formInline.password
-      };
-      this.$store.dispatch(types.A_LOGIN, user);
-    }
+    showModal() {
+      this.modal_visible = true;
+    },
+    onSubmit() {
+      this.$refs.ruleForm
+        .validate()
+        .then(() => {
+          this.$store.dispatch(types.A_LOGIN, this.form);
+        })
+        .catch((error) => {
+          console.log("error", error);
+        });
+    },
   },
   computed: {
     loading() {
-      return this.$store.state.login.loading;
+      return this.$store.state.user.loading;
     },
     error() {
-      return this.$store.state.login.error;
+      return this.$store.state.user.error;
+    },
+    isLoggedIn() {
+      return this.$store.state.user.isLoggedIn;
     }
   },
   components: {
-  }
+    Register,
+  },
 };
 </script>
-
-<style></style>

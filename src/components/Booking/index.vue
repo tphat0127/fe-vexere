@@ -152,8 +152,7 @@ export default {
       return arr;
     },
     isLoggedIn() {
-      if (localStorage.getItem("token")) return true;
-      return false;
+      return this.$store.state.user.isLoggedIn;
     },
   },
 };
