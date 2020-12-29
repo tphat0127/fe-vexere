@@ -1,5 +1,5 @@
 <template>
-  <a-menu theme="light" v-model:selectedKeys="selectedKeys" mode="inline">
+  <a-menu theme="light" mode="inline">
     <a-menu-item key="1">
       <router-link to="/admin/stations">
         <PieChartOutlined /> <span>Station </span></router-link
@@ -8,6 +8,11 @@
     <a-menu-item key="2">
       <router-link to="/admin/trips">
         <PieChartOutlined /> <span>Trip </span></router-link
+      >
+    </a-menu-item>
+    <a-menu-item key="4">
+      <router-link to="/admin/coaches">
+        <PieChartOutlined /> <span>Coach </span></router-link
       >
     </a-menu-item>
     <a-menu-item key="3">

@@ -1,5 +1,5 @@
 import axios from "axios";
 
 export const api = axios.create({
-  baseURL: "http://localhost:6789/api"
+  baseURL: "https://ntp-cybersoft-be.herokuapp.com"
 });

@@ -78,6 +78,10 @@ const routes = [
       {
         path: "/admin/trips/:tripId/detail",
         component: () => import("./../views/AdminTemplate/DetailTripPage")
+      },
+      {
+        path: "/admin/coaches",
+        component: () => import("./../views/AdminTemplate/CoachPage")
       }
     ]
   },

@@ -122,7 +122,7 @@ export default {
       this.$refs.ruleTripForm.resetFields();
     },
     handlePickStartTimeChange(startTime, dateString) {
-      
+      this.createTripForm.startTime = startTime;
       console.log('Selected Time: ', startTime);
       console.log('Formatted Selected Time: ', dateString);
     },
@@ -137,8 +137,8 @@ export default {
       return this.$store.state.modules.data;
     },
     listCoachs() {
-      console.log(this.$store.state.coach.coachData);
-      return this.$store.state.coach.coachData;
+      console.log(this.$store.state.coach.data);
+      return this.$store.state.coach.data;
     }
   }
 };

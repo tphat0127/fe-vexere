@@ -58,13 +58,6 @@ export default {
 </script>
 
 <style>
-  body {
-    background-color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-  }
   .form{
     position: absolute;
     top: 45%;
