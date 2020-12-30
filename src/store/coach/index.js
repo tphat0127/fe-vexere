@@ -1,5 +1,5 @@
 import { api } from "../../api";
-//import router from "../../router";
+import router from "../../router";
 import * as types from "./constant";
 
 const state = {
@@ -27,6 +27,16 @@ const mutations = {
 };
 
 const actions = {
+  [types.A_FETCH_DETAIL_COACH]({ commit }, id){
+    commit(types.M_COACH_REQUEST);
+    api.get(`/coaches/${id}`)
+        .then((response) => {
+            commit(types.M_COACH_SUCCESS, response.data);
+        })
+        .catch(error => {
+            commit(types.M_COACH_FAILURE, error);
+        });
+},
   [types.A_FETCH_LIST_COACH]({ commit }) {
     commit(types.M_COACH_REQUEST);
     api
@@ -35,6 +45,30 @@ const actions = {
         commit(types.M_COACH_SUCCESS, response.data);
       })
       .catch(error => {
+        commit(types.M_COACH_FAILURE, error);
+      });
+  },
+  actFetchCreateCoach({ commit }, coach) {
+    commit(types.M_COACH_REQUEST);
+    api
+      .post("/coaches", coach)
+      .then(response => {
+        commit(types.M_COACH_SUCCESS, response.data);
+        router.replace("/admin/coaches");
+      })
+      .catch(error => {
+        commit(types.M_COACH_FAILURE, error);
+      });
+  },
+  actFetchEditCoaches({ commit }, data) {
+    commit(types.M_COACH_REQUEST);
+    api
+      .put(`/coaches/${data._id}`, data)
+      .then((response) => {
+        commit(types.M_COACH_SUCCESS, response.data);
+        router.replace("/admin/coaches");
+      })
+      .catch((error) => {
         commit(types.M_COACH_FAILURE, error);
       });
   },

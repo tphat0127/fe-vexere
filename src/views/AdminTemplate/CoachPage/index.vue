@@ -1,5 +1,5 @@
 <template>
-  <router-link to="/admin/coach/create">
+  <router-link to="/admin/coaches/create">
     <a-button>Create</a-button>
   </router-link>
   <a-table
@@ -23,7 +23,7 @@
       </a-popconfirm>
 
       <a-divider type="vertical" />
-      <router-link :to="`/admin/stations/${record._id}/edit`">
+      <router-link :to="`/admin/coaches/${record._id}/edit`">
         <a-button>Edit</a-button>
       </router-link>
     </template>

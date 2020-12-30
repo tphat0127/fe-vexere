@@ -2,33 +2,85 @@
   <router-link to="/admin/trips/create">
     <a-button>Tạo chuyến đi</a-button>
   </router-link>
-  <template v-if="loading"><Loader /></template>
-  <a-list item-layout="horizontal" v-else>
-    <TripItem v-for="trip in data"
-      :key="trip._id"
-      :trip="trip"/>
-  </a-list>
+  <a-table
+    span="4"
+    :columns="columns"
+    :data-source="data"
+    bordered
+    :loading="$store.state.trip.loading"
+    :rowKey="(record) => record._id"
+  >
+    <template #action="{ record }">
+      <a-popconfirm
+        v-if="data.length"
+        title="Sure to delete?"
+        @confirm="onDelete(record._id)"
+      >
+        <a-button type="danger">Delete</a-button>
+      </a-popconfirm>
+
+      <a-divider type="vertical" />
+      <router-link :to="`/admin/trips/${record._id}/edit`">
+        <a-button>Edit</a-button>
+      </router-link>
+    </template>
+  </a-table>
 </template>
 <script>
-import TripItem from "./../../../components/TripItem"
 import * as types from "./../../../store/trip/constant";
-import Loader from "./../../../components/Loader";
 export default {
   created() {
     this.$store.dispatch(types.A_FETCH_LIST_TRIP);
   },
   computed: {
+    methods: {
+      onDelete(id) {
+        this.$store.dispatch("actFetchDeleteTrip", id);
+      },
+    },
     data() {
       return this.$store.state.trip.data;
     },
+    columns() {
+      return [
+        {
+          title: "Start",
+          dataIndex: "fromStationId.name",
+          key: "fromStationId.name",
+          slots: { customRender: "fromStationId.name" },
+        },
+        {
+          title: "End",
+          dataIndex: "toStationId.name",
+          key: "toStationId.name",
+          slots: { customRender: "toStationId.name" },
+        },
+        {
+          title: "Start Time",
+          dataIndex: "startTime",
+          key: "startTime",
+          slots: { customRender: "startTime" },
+        },
+        {
+          title: "Price",
+          dataIndex: "price",
+          key: "price",
+          slots: { customRender: "price" },
+        },
+        {
+          title: "Action",
+          dataIndex: "action",
+          key: "action",
+          slots: { customRender: "action" },
+        },
+      ];
+    },
     loading() {
       return this.$store.state.trip.loading;
-    }
+    },
   },
   components: {
-    Loader,
-    TripItem
-  }
+  },
 };
 </script>
 <style>
