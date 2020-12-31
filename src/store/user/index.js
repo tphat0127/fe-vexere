@@ -124,6 +124,17 @@ const actions = {
         commit(types.M_USER_FAILURE, error);
       });
   },
+  [types.A_FETCH_DETAIL_USER]({ commit }, id) {
+    commit(types.M_USER_REQUEST);
+    api
+    .get(`/users/${id}`)
+      .then(response => {
+        commit(types.M_USER_SUCCESS, response.data);
+      })
+      .catch(error => {
+        commit(types.M_USER_FAILURE, error);
+      });
+  },
   actFetchDeleteUser({ commit, dispatch }, id) {
     commit(types.M_USER_REQUEST);
     api
