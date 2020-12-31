@@ -4,7 +4,8 @@
       ref="ruleForm"
       :model="form"
       :rules="rules"
-      :label-col="labelCol" :wrapper-col="wrapperCol"
+      :label-col="labelCol"
+      :wrapper-col="wrapperCol"
     >
       <a-form-item>
         <a-alert
@@ -22,7 +23,12 @@
       </a-form-item>
 
       <a-form-item :wrapper-col="{ span: 14, offset: 4 }">
-        <a-button @click="onSubmit" type="primary" html-type="submit" :loading="loading">
+        <a-button
+          @click="onSubmit"
+          type="primary"
+          html-type="submit"
+          :loading="loading"
+        >
           Login
         </a-button>
 
@@ -32,7 +38,12 @@
       </a-form-item>
     </a-form>
   </a-row>
-  <a-modal v-model:visible="modal_visible" title="Đăng ký" :footer="null" v-if="!isLoggedIn">
+  <a-modal
+    v-model:visible="modal_visible"
+    title="Đăng ký"
+    :footer="null"
+    v-if="!isLoggedIn"
+  >
     <Register />
   </a-modal>
 </template>
@@ -91,7 +102,7 @@ export default {
     },
     isLoggedIn() {
       return this.$store.state.user.isLoggedIn;
-    }
+    },
   },
   components: {
     Register,

@@ -10,8 +10,8 @@
     :loading="$store.state.coach.loading"
     :rowKey="(record) => record._id"
   >
-    <template #thumbnail="{ text }">
-      <img :src="text" width="68" height="68" />
+    <template #thumbnail="{ text, record }">
+      <a-avatar :src="text"/> {{ record.name}}
     </template>
     <template #action="{ record }">
       <a-popconfirm
