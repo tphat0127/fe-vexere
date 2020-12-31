@@ -7,5 +7,6 @@ export const M_LOGIN_SUCCESS = "user/M_LOGIN_SUCCESS";
 export const M_LOGIN_FAILED = "user/M_LOGIN_FAILED";
 
 //ACTION
-export const A_FETCH_REGISTRATION = "user/A_FETCH_REGISTRATION";
+export const A_FETCH_LIST_USER = "user/A_FETCH_LIST_USER";
+
 export const A_LOGIN = "user/A_LOGIN";

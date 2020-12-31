@@ -95,6 +95,18 @@ const routes = [
         path: "/admin/coaches/:coachId/edit",
         component: () => import("./../views/AdminTemplate/EditCoachPage")
       },
+      {
+        path: "/admin/users",
+        component: () => import("./../views/AdminTemplate/UserPage")
+      },
+      {
+        path: "/admin/users/:userId/edit",
+        component: () => import("./../views/AdminTemplate/EditUserPage")
+      },
+      {
+        path: "/admin/users/create",
+        component: () => import("./../views/AdminTemplate/CreateUserPage")
+      }
     ]
   },
   {

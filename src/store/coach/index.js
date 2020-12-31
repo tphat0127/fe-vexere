@@ -5,7 +5,7 @@ import * as types from "./constant";
 const state = {
   loading: false,
   data: null,
-  error: null
+  error: null,
 };
 
 const mutations = {
@@ -23,28 +23,29 @@ const mutations = {
     state.loading = false;
     state.data = null;
     state.error = payload;
-  }
+  },
 };
 
 const actions = {
-  [types.A_FETCH_DETAIL_COACH]({ commit }, id){
+  [types.A_FETCH_DETAIL_COACH]({ commit }, id) {
     commit(types.M_COACH_REQUEST);
-    api.get(`/coaches/${id}`)
-        .then((response) => {
-            commit(types.M_COACH_SUCCESS, response.data);
-        })
-        .catch(error => {
-            commit(types.M_COACH_FAILURE, error);
-        });
-},
+    api
+      .get(`/coaches/${id}`)
+      .then((response) => {
+        commit(types.M_COACH_SUCCESS, response.data);
+      })
+      .catch((error) => {
+        commit(types.M_COACH_FAILURE, error);
+      });
+  },
   [types.A_FETCH_LIST_COACH]({ commit }) {
     commit(types.M_COACH_REQUEST);
     api
       .get("/coaches")
-      .then(response => {
+      .then((response) => {
         commit(types.M_COACH_SUCCESS, response.data);
       })
-      .catch(error => {
+      .catch((error) => {
         commit(types.M_COACH_FAILURE, error);
       });
   },
@@ -52,11 +53,11 @@ const actions = {
     commit(types.M_COACH_REQUEST);
     api
       .post("/coaches", coach)
-      .then(response => {
+      .then((response) => {
         commit(types.M_COACH_SUCCESS, response.data);
         router.replace("/admin/coaches");
       })
-      .catch(error => {
+      .catch((error) => {
         commit(types.M_COACH_FAILURE, error);
       });
   },
@@ -74,14 +75,15 @@ const actions = {
   },
   actFetchDeleteCoach({ commit, dispatch }, id) {
     commit(types.M_COACH_REQUEST);
-    api.delete(`/coaches/${id}`)
-        .then(() => {
-            dispatch(types.A_FETCH_LIST_COACH);
-        })
-        .catch((error) => {
-            commit(types.M_COACH_FAILURE, error);
-        });
-      }
+    api
+      .delete(`/coaches/${id}`)
+      .then(() => {
+        dispatch(types.A_FETCH_LIST_COACH);
+      })
+      .catch((error) => {
+        commit(types.M_COACH_FAILURE, error);
+      });
+  },
 };
 
 export default { state, mutations, actions };

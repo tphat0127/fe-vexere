@@ -112,6 +112,53 @@ const actions = {
     setHeader(token);
     commit(types.M_LOGIN_SUCCESS);
   },
+  /////////////////////ADMIN TEMPLATE //////////////////
+  [types.A_FETCH_LIST_USER]({ commit }) {
+    commit(types.M_USER_REQUEST);
+    api
+      .get("/users")
+      .then(response => {
+        commit(types.M_USER_SUCCESS, response.data);
+      })
+      .catch(error => {
+        commit(types.M_USER_FAILURE, error);
+      });
+  },
+  actFetchDeleteUser({ commit, dispatch }, id) {
+    commit(types.M_USER_REQUEST);
+    api
+      .delete(`/users/${id}`)
+      .then(() => {
+        dispatch(types.A_FETCH_LIST_USER);
+      })
+      .catch((error) => {
+        commit(types.M_USER_FAILURE, error);
+      });
+  },
+  actFetchEditUser({ commit }, data) {
+    commit(types.M_USER_REQUEST);
+    api
+      .put(`/users/${data._id}`, data)
+      .then((response) => {
+        commit(types.M_USER_SUCCESS, response.data);
+        router.replace("/admin/users");
+      })
+      .catch((error) => {
+        commit(types.M_USER_FAILURE, error);
+      });
+  },
+  actFetchCreateUser({ commit }, user) {
+    commit(types.M_USER_REQUEST);
+    api
+      .post("/users", user)
+      .then((response) => {
+        commit(types.M_USER_SUCCESS, response.data);
+        router.replace("/admin/users");
+      })
+      .catch((error) => {
+        commit(types.M_USER_FAILURE, error);
+      });
+  },
 };
 
 export default { state, mutations, actions };

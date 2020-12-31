@@ -15,6 +15,11 @@
         <PieChartOutlined /> <span>Coach </span></router-link
       >
     </a-menu-item>
+     <a-menu-item key="5">
+      <router-link to="/admin/users">
+        <PieChartOutlined /> <span>User </span></router-link
+      >
+    </a-menu-item>
     <a-menu-item key="3">
       <router-link to="/about"> <FileOutlined />Liên hệ</router-link>
     </a-menu-item>
