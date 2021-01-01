@@ -1,5 +1,4 @@
 <template>
-
   <a-form
     ref="ruleTripForm"
     :model="createCoachForm"

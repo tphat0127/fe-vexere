@@ -1,5 +1,5 @@
 <template>
-<template v-if="$store.state.coach.loading"><Loader /></template>
+  <template v-if="loading || this.$store.state.coach.loading || this.$store.state.station.loading"><Loader /></template>
   <a-form
     v-else
     ref="ruleTripForm"
@@ -71,7 +71,7 @@ import * as types_coach from "./../../../store/coach/constant";
 import * as types_trip from "./../../../store/trip/constant";
 import Loader from "./../../../components/Loader";
 export default {
-  created() {
+  beforeCreate() {
     this.$store.dispatch(types.A_FETCH_LIST_STATION);
     this.$store.dispatch(types_coach.A_FETCH_LIST_COACH);
     this.$store.dispatch(
@@ -133,7 +133,7 @@ export default {
         });
     },
     resetForm() {
-      console.log(this.tripDetail)
+      console.log(this.tripDetail);
     },
     handlePickStartTimeChange(startTime, dateString) {
       this.editTripForm.startTime = startTime;
@@ -157,14 +157,14 @@ export default {
     },
     tripDetail() {
       return this.$store.state.trip.data;
-    }
     },
-    watch: {
-      tripDetail() {
-        this.editTripForm.price = this.tripDetail.price;
-        this.editTripForm.startTime = this.tripDetail.startTime;      
-      },
+  },
+  watch: {
+    tripDetail() {
+      this.editTripForm.price = this.tripDetail.price;
+      this.editTripForm.startTime = this.tripDetail.startTime;
     },
+  },
   components: {
     Loader,
   },

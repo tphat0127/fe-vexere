@@ -106,6 +106,18 @@ const routes = [
       {
         path: "/admin/users/create",
         component: () => import("./../views/AdminTemplate/CreateUserPage")
+      },
+      {
+        path: "/admin/tickets",
+        component: () => import("./../views/AdminTemplate/TicketPage")
+      },
+      {
+        path: "/admin/tickets/:ticketsId/edit",
+        component: () => import("./../views/AdminTemplate/EditTicketPage")
+      },
+      {
+        path: "/admin/tickets/create",
+        component: () => import("./../views/AdminTemplate/CreateTicketPage")
       }
     ]
   },

@@ -15,9 +15,14 @@
         <PieChartOutlined /> <span>Coach </span></router-link
       >
     </a-menu-item>
-     <a-menu-item key="5">
+    <a-menu-item key="5">
       <router-link to="/admin/users">
         <PieChartOutlined /> <span>User </span></router-link
+      >
+    </a-menu-item>
+    <a-menu-item key="6">
+      <router-link to="/admin/tickets">
+        <PieChartOutlined /> <span>Ticket </span></router-link
       >
     </a-menu-item>
     <a-menu-item key="3">
@@ -31,8 +36,8 @@ import { PieChartOutlined, FileOutlined } from "@ant-design/icons-vue";
 export default {
   components: {
     PieChartOutlined,
-    FileOutlined
-  }
+    FileOutlined,
+  },
 };
 </script>
 

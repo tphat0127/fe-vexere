@@ -32,12 +32,12 @@ export default {
   created() {
     this.$store.dispatch(types.A_FETCH_LIST_TRIP);
   },
-  computed: {
-    methods: {
-      onDelete(id) {
-        this.$store.dispatch("actFetchDeleteTrip", id);
-      },
+  methods: {
+    onDelete(id) {
+      this.$store.dispatch("actFetchDeleteTrip", id);
     },
+  },
+  computed: {
     data() {
       return this.$store.state.trip.data;
     },
@@ -79,8 +79,7 @@ export default {
       return this.$store.state.trip.loading;
     },
   },
-  components: {
-  },
+  components: {},
 };
 </script>
 <style>

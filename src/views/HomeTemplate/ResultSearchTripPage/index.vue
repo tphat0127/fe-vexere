@@ -165,7 +165,9 @@ export default {
         o.fromStationId.province ==
           JSON.parse(localStorage.getItem("tripSearchData")).fromProvince &&
         o.toStationId.province ==
-          JSON.parse(localStorage.getItem("tripSearchData")).toProvince
+          JSON.parse(localStorage.getItem("tripSearchData")).toProvince &&
+        moment(o.startTime).format("DD/MM/yyyy") ==
+          JSON.parse(localStorage.getItem("tripSearchData")).startTime
     );
   },
   data() {

@@ -10,9 +10,11 @@
 
       <div
         class="banner0-content"
-        style="opacity: 1; transform: translate(0px, 0px);"
+        style="opacity: 1; transform: translate(0px, 0px); align: center"
       >
-        <SearchTrip />
+        <a-row type="flex" justify="space-around" align="middle">
+          <SearchTrip />
+        </a-row>
       </div>
       <!-- <button data-edit="link,text" type="button" class="ant-btn banner0-button ant-btn-background-ghost" style="opacity: 1; transform: translate(0px, 0px);">
                 <span>Learn More</span>

@@ -62,8 +62,8 @@ export default {
       labelCol: { span: 4 },
       wrapperCol: { span: 14 },
       editCoachForm: {
-        name: "",
         seats: 24,
+        _id: ""
       },
       rules: {
         name: [

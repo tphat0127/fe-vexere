@@ -26,6 +26,28 @@ const mutations = {
 };
 
 const actions = {
+  [types.A_FETCH_LIST_TICKET]({ commit }) {
+    commit(types.M_TICKET_REQUEST);
+    api
+      .get("/tickets")
+      .then((response) => {
+        commit(types.M_TICKET_SUCCESS, response.data);
+      })
+      .catch((error) => {
+        commit(types.M_TICKET_FAILURE, error);
+      });
+  },
+  actFetchDeleteTicket({ commit, dispatch }, id) {
+    commit(types.M_TICKET_REQUEST);
+    api
+      .delete(`/tickets/${id}`)
+      .then(() => {
+        dispatch(types.A_FETCH_LIST_TICKET);
+      })
+      .catch((error) => {
+        commit(types.M_TICKET_REQUEST, error);
+      });
+  },
   actFetchBookTicket({ commit }, ticket) {
     commit(types.M_TICKET_REQUEST);
     api
