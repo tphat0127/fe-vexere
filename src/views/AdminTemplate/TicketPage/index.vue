@@ -38,7 +38,6 @@ export default {
     this.$store.dispatch(types.A_FETCH_LIST_TICKET);
   },
   mounted() {
-    this.getUserName();
   },
   methods: {
     onDelete(id) {

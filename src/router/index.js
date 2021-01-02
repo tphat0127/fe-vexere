@@ -8,7 +8,8 @@ const routes = [
     children: [
       {
         path: "/",
-        component: () => import("./../views/HomeTemplate/HomePage")
+        component: () => import("./../views/HomeTemplate/HomePage"),
+        name: "home"
       },
       {
         path: "/about",

@@ -91,7 +91,6 @@ export default {
       this.$router.push("/result");
     },
     onSelectFromStation(value, option) {
-      //this.isOpenSelectToStation = true;
       this.searchTripForm.fromProvince = option.value;
       localStorage.setItem(
         "tripSearchData",
@@ -99,8 +98,6 @@ export default {
       );
     },
     onSelectToStation(value, option) {
-      // this.isOpenSelectToStation = !this.isOpenSelectToStation;
-      // this.isDateTime = !this.isDateTime;
       this.searchTripForm.toProvince = option.value;
       localStorage.setItem(
         "tripSearchData",

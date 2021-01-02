@@ -4,23 +4,67 @@
       <a-step v-for="item in steps" :key="item.title" :title="item.title" />
     </a-steps>
     <div class="steps-content">
-      <div v-if="current == 0">
-        <template v-for="(seat, index) in bookTrip.seats" :key="index">
-          <Seat
-            :seat="seat"
-            @event-book="handleBooking"
-            :unSeatSelect="unSeatSelect"
-          />
-          <br v-if="(index + 1) % 4 === 0" />
-        </template>
-      </div>
+      <a-row v-if="current == 0" type="flex" justify="space-around">
+        <a-col :span="12">
+          <b>Chú thích</b>
+          <a-row  type="flex" justify="space-around" align="middle">
+            <a-col>
+              <div class="space-align-container">
+            <a-space align="center">
+              <div class="seat seatSelect" /> <span>Đang chọn</span>
+            </a-space>
+          </div>
+           <div class="space-align-container">
+            <a-space align="center">
+              <div class="seat seatBooked" /> <span>Đã chọn</span>
+            </a-space>
+          </div>
+           <div class="space-align-container">
+            <a-space align="center">
+              <div class="seat" /> <span>Ghế trống</span>
+            </a-space>
+          </div>
+            </a-col>
+          </a-row>
+        </a-col>
+        <a-col :span="6">
+          Tầng 1
+          <div class="tang">
+            <template
+            v-for="(seat, index) in bookTrip.seats.slice(0, 12)"
+            :key="index"
+          >
+            <Seat
+              :seat="seat"
+              @event-book="handleBooking"
+              :unSeatSelect="unSeatSelect"
+            />
+          </template>
+          </div>
+        </a-col>
+        <a-col :span="6">
+          Tầng 2
+          <div class="tang">
+            <template
+            v-for="(seat, index) in bookTrip.seats.slice(12, 24)"
+            :key="index"
+          >
+            <Seat
+              :seat="seat"
+              @event-book="handleBooking"
+              :unSeatSelect="unSeatSelect"
+            />
+          </template>
+          </div>
+        </a-col>
+      </a-row>
       <div v-else-if="current == 1">
         <div v-if="isLoggedIn">
           <a-divider>Thanh toán</a-divider>
           ĐÃ THANH TOÁN
         </div>
         <div v-else>
-           <a-divider>Bạn cần đăng nhập để tiếp tục</a-divider>
+          <a-divider>Bạn cần đăng nhập để tiếp tục</a-divider>
           <Login />
         </div>
       </div>
@@ -37,19 +81,17 @@
           v-if="current == 1"
           type="primary"
           @click="handleBookTicket()"
-
           :disabled="!isLoggedIn"
           :loading="$store.state.ticket.loading"
         >
           Đặt vé
         </a-button>
-        <a-button
-          v-if="current == 2"
-          type="primary"
-          @click="this.router.to('/')"
-        >
+        <router-link  v-if="current == 2" to="/">
+        <a-button type="primary">
           Trang chủ
         </a-button>
+        </router-link>
+       
         <a-button v-if="current > 0" style="margin-left: 8px" @click="prev">
           Quay lại
         </a-button>
@@ -95,15 +137,13 @@ export default {
   },
   methods: {
     handleNextStep() {
-      if(this.listSeatSelect.length === 0) {
+      if (this.listSeatSelect.length === 0) {
         Modal.info({
-        title: 'Bạn chưa chọn chỗ',
-        content: h('div', {}, [
-          h('p', 'Cần chọn ít nhất 1 ghế trống'),
-        ]),
-        onOk() {},
-      });
-      return;
+          title: "Bạn chưa chọn chỗ",
+          content: h("div", {}, [h("p", "Cần chọn ít nhất 1 ghế trống")]),
+          onOk() {},
+        });
+        return;
       }
       this.current = 1;
     },
@@ -117,6 +157,8 @@ export default {
     },
     prev() {
       this.current--;
+      this.listSeatSelect = [];
+      this.totalPrice = 0;
     },
     handleBooking(obj) {
       this.$emit("send-listseat", this.listSeatSelect);
@@ -124,7 +166,7 @@ export default {
       else this.totalPrice -= this.price;
       if (obj.statusSeat) {
         this.listSeatSelect.push(obj.seat);
-        
+
         this.unSeatSelect = null;
       } else {
         const index = this.listSeatSelect.findIndex((item) => {
@@ -172,5 +214,40 @@ export default {
 
 .steps-action {
   margin-top: 24px;
+}
+
+.tang {
+  margin-top: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  width: 11.4em;
+  background-color: #E6E6E6;
+  padding: 20px 10px 10px 10px;
+  border-radius: 18px 18px 5px 5px;
+}
+.seat {
+  background-color: rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
+  width: 3em;
+  height: 3em;
+  border: 1px solid #0e960a;
+  margin-left: 0.2em;
+  margin-bottom: 0.2em;
+}
+.seatSelect {
+  background-color: #0e960a;
+  color: white;
+}
+
+.seatBooked {
+  background-color: red;
+  border: 1px solid red;
+  color: white;
+  cursor: no-drop;
+}
+.space-align-container {
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
 }
 </style>

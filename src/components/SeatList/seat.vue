@@ -43,16 +43,23 @@ export default {
 
 <style>
 .seat {
-  background-color: gray;
-  color: white;
-  width: 44px;
+  background-color: rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
+  width: 3em;
+  height: 3em;
+  border: 1px solid #0e960a;
+  margin-left: 0.2em;
+  margin-bottom: 0.2em;
 }
 .seatSelect {
-  background-color: green;
+  background-color: #0e960a;
+  color: white;
 }
 
 .seatBooked {
   background-color: red;
+  border: 1px solid red;
+  color: white;
   cursor: no-drop;
 }
 </style>

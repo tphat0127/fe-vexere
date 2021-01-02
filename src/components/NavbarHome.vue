@@ -20,7 +20,7 @@
             <router-link to="/about">Liên hệ</router-link>
           </a-menu-item>
           <a-menu-item key="4" @click="click">
-            <UserOutlined /> <span v-if="!isLoggedIn">Đăng nhập</span> <span v-else>Logout</span>
+            <UserOutlined /> <span v-if="!isLoggedIn">Đăng nhập</span> <span v-else>Hồ sơ</span>
           </a-menu-item>
         </a-menu>
       </div>
@@ -29,15 +29,26 @@
   <a-modal v-model:visible="modal_visible" title="Đăng nhập" :footer="null" v-if="!isLoggedIn">
    <Login />
   </a-modal>
+  <a-drawer
+    v-model:visible="drawer_visible"
+     placement="right"
+     title="Thông tin tài khoản">
+    <UserProfile/>
+  </a-drawer>
 </template>
 <script>
 import { UserOutlined } from "@ant-design/icons-vue";
 import Login from "./Login";
-import { message } from 'ant-design-vue';
+import UserProfile from "./UserProfile"
 export default {
+  updated() {
+    if(!this.isLoggedIn)
+      this.drawer_visible = false
+  },
   data() {
     return {
       modal_visible: false,
+      drawer_visible: false,
     }
   },
   methods: {
@@ -46,26 +57,23 @@ export default {
         this.showModal();
       }
       else {
-        this.handleLogOut();
+        this.drawer_visible = true
       }
     },
     showModal() {
       this.$store.dispatch("actHandleLogin")
       this.modal_visible = true;
-    },
-    handleLogOut() {
-      this.$store.dispatch("actUserLogout")
-      message.success('Đã đăng xuất');
     }
   },
   computed: {
     isLoggedIn() {
       return this.$store.state.user.isLoggedIn;
-    }
+    },
   },
   components: {
     UserOutlined,
     Login,
+    UserProfile
   },
 };
 </script>

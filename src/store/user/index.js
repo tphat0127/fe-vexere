@@ -24,7 +24,7 @@ const mutations = {
   },
   [types.M_USER_FAILURE](state, payload) {
     state.loading = false;
-    state.data = null;
+    state.dataUser = null;
     state.error = payload;
   },
   [types.M_LOGIN_REQUIRED](state) {
@@ -79,6 +79,7 @@ const actions = {
         const user = jwtDecode(response.data.token);
         const exp = (user.exp - user.iat) * 1000;
         localStorage.setItem("token", response.data.token);
+        
         localStorage.setItem("exp", user.exp);
         dispatch("actSetTimeoutLogout", exp);
         setHeader(response.data.token);
@@ -112,6 +113,28 @@ const actions = {
     setHeader(token);
     commit(types.M_LOGIN_SUCCESS);
   },
+  [types.A_FETCH_ME]({ commit }) {
+    commit(types.M_USER_REQUEST);
+    api
+    .get(`/me`)
+      .then(response => {
+        commit(types.M_USER_SUCCESS, response.data);
+      })
+      .catch(error => {
+        commit(types.M_USER_FAILURE, error);
+      });
+  },
+  actUpdatePassword({ commit }, data){
+    commit(types.M_USER_REQUEST);
+    api
+      .patch("/users/update-pwd", data)
+      .then((response) => {
+        commit(types.M_USER_SUCCESS, response.data);
+      })
+      .catch((error) => {
+        commit(types.M_USER_FAILURE, error);
+      });
+  },
   /////////////////////ADMIN TEMPLATE //////////////////
   [types.A_FETCH_LIST_USER]({ commit }) {
     commit(types.M_USER_REQUEST);
@@ -135,6 +158,7 @@ const actions = {
         commit(types.M_USER_FAILURE, error);
       });
   },
+  
   actFetchDeleteUser({ commit, dispatch }, id) {
     commit(types.M_USER_REQUEST);
     api
