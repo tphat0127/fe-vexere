@@ -10,7 +10,7 @@
     :rowKey="(record) => record._id"
   >
     <template #fullName="{ text, record }">
-      <a-avatar :src="`http://localhost:5555/images/${record.avatarUrl}`" /> {{ text }}
+      <a-avatar :src="`${imgUrl}${record.avatarUrl}`" /> {{ text }}
     </template>
     <template #action="{ record }">
       <a-popconfirm
@@ -30,6 +30,7 @@
 </template>
 <script>
 import * as types from "./../../../store/user/constant";
+import {imgServer} from "./../../../api"
 export default {
   created() {
     this.$store.dispatch(types.A_FETCH_LIST_USER);
@@ -38,6 +39,11 @@ export default {
     onDelete(id) {
       this.$store.dispatch("actFetchDeleteUser", id);
     },
+  },
+  data() {
+    return {
+      imgUrl: imgServer
+    }
   },
   computed: {
     data() {

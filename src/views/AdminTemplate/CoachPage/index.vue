@@ -10,7 +10,7 @@
     :rowKey="(record) => record._id"
   >
     <template #thumbnail="{ text, record }">
-      <a-avatar :src="text"/> {{ record.name}}
+      <a-avatar :src="`${imgUrl}${text}`" /> {{ record.name }}
     </template>
     <template #action="{ record }">
       <a-popconfirm
@@ -30,9 +30,15 @@
 </template>
 <script>
 import * as types from "./../../../store/coach/constant";
+import {imgServer} from "./../../../api"
 export default {
   created() {
     this.$store.dispatch(types.A_FETCH_LIST_COACH);
+  },
+  data() {
+    return {
+      imgUrl: imgServer
+    }
   },
   methods: {
     onDelete(id) {

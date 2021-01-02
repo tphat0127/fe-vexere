@@ -14,7 +14,7 @@
           <a-avatar
             style="color: #f56a00"
             shape="square"
-            :src="trip.coachId.thumbnail"
+            :src="`${imgUrl}${trip.coachId.thumbnail}`"
             :size="64"
           />
         </template>
@@ -66,11 +66,13 @@
 <script>
 import moment from "moment";
 import Booking from "./../Booking"
+import {imgServer} from "./../../api"
 export default {
   props: ["trip"],
   data() {
     return {
       isShowBookForm: false,
+      imgUrl: imgServer
     }
   },
   methods: {
