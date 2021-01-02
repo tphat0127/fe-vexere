@@ -1,12 +1,11 @@
 <template>
   <router-link to="/admin/coaches/create">
-    <a-button>Create</a-button>
+    <a-button type="link">Create new coach</a-button>
   </router-link>
   <a-table
     span="4"
     :columns="columns"
     :data-source="data"
-    bordered
     :loading="$store.state.coach.loading"
     :rowKey="(record) => record._id"
   >
@@ -38,7 +37,7 @@ export default {
   methods: {
     onDelete(id) {
       this.$store.dispatch("actFetchDeleteCoach", id);
-    },
+    }
   },
   computed: {
     data() {
@@ -47,16 +46,10 @@ export default {
     columns() {
       return [
         {
-          title: "thumbnail",
+          title: "Name",
           dataIndex: "thumbnail",
           key: "thumbnail",
           slots: { customRender: "thumbnail" },
-        },
-        {
-          title: "Name",
-          dataIndex: "name",
-          key: "name",
-          slots: { customRender: "name" },
         },
         {
           title: "Seats",

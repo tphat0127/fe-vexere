@@ -1,7 +1,8 @@
 <template>
   <template v-if="loading || this.$store.state.coach.loading || this.$store.state.station.loading"><Loader /></template>
-  <a-form
-    v-else
+  <template v-else>
+    <h2>Update Trip</h2>
+    <a-form
     ref="ruleTripForm"
     :model="editTripForm"
     :rules="rules"
@@ -12,7 +13,7 @@
     <!-- Diem di -->
     <a-form-item
       ref="fromStationId"
-      label="Bến xe khởi hành"
+      label="From station"
       name="fromStationId"
     >
       <a-select v-model:value="editTripForm.fromStationId" defaultValue="ddd">
@@ -22,7 +23,7 @@
       </a-select>
     </a-form-item>
     <!-- Diem den -->
-    <a-form-item ref="toStationId" label="Bến xe kết thúc" name="toStationId">
+    <a-form-item ref="toStationId" label="To station" name="toStationId">
       <a-select v-model:value="editTripForm.toStationId">
         <a-select-option v-for="s in listStations" :key="s" :value="s._id">
           {{ s.name }}
@@ -30,11 +31,11 @@
       </a-select>
     </a-form-item>
     <!-- Gia ve -->
-    <a-form-item ref="price" label="Giá vé" name="price">
+    <a-form-item ref="price" label="Price" name="price">
       <a-input-number v-model:value="editTripForm.price" />
     </a-form-item>
     <!-- Nha xe -->
-    <a-form-item ref="coach" label="Nhà xe" name="coach">
+    <a-form-item ref="coach" label="Coach" name="coach">
       <a-select v-model:value="editTripForm.coachId">
         <a-select-option v-for="s in listCoachs" :key="s" :value="s._id">
           {{ s.name }}
@@ -42,7 +43,7 @@
       </a-select>
     </a-form-item>
     <!-- Bat dau -->
-    <a-form-item ref="startTime" label="Giờ khở hành" name="startTime">
+    <a-form-item ref="startTime" label="Start time" name="startTime">
       <a-date-picker
         show-time
         :placeholder="editTripForm.startTime"
@@ -57,13 +58,11 @@
         @click="onSubmit"
         :loading="$store.state.trip.loading"
       >
-        Tạo chuyến đi
-      </a-button>
-      <a-button @click="resetForm">
-        Nhập lại
+        Edit
       </a-button>
     </a-form-item>
   </a-form>
+  </template>
 </template>
 <script>
 import * as types from "./../../../store/modules/constant";
@@ -82,13 +81,13 @@ export default {
   data() {
     let checkPrice = async (rule, value) => {
       if (!value) {
-        return Promise.reject("Hãy nhập giá vé");
+        return Promise.reject("Please input price");
       }
       if (!Number.isInteger(value)) {
-        return Promise.reject("Giá vé không hợp lệ");
+        return Promise.reject("Price is invalid");
       } else {
         if (value < 0) {
-          return Promise.reject("Giá vé phải lớn hơn 0");
+          return Promise.reject("Price more thanh 0");
         } else {
           return Promise.resolve();
         }
@@ -108,13 +107,13 @@ export default {
         fromStationId: [
           {
             required: true,
-            message: "Hãy chọn bến xe xuất hành",
+            message: "Please input from station",
           },
         ],
         toStationId: [
           {
             required: true,
-            message: "Hãy chọn điểm đến",
+            message: "Plesae input to station",
           },
         ],
         price: [{ validator: checkPrice, trigger: "change" }],
@@ -131,9 +130,6 @@ export default {
         .catch((error) => {
           console.log("error", error);
         });
-    },
-    resetForm() {
-      console.log(this.tripDetail);
     },
     handlePickStartTimeChange(startTime, dateString) {
       this.editTripForm.startTime = startTime;

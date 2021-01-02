@@ -1,12 +1,11 @@
 <template>
   <router-link to="/admin/tickets/create">
-    <a-button>Create</a-button>
+    <a-button type="link">Create new ticket</a-button>
   </router-link>
   <a-table
     span="4"
     :columns="columns"
     :data-source="data"
-    bordered
     :loading="$store.state.ticket.loading"
     :rowKey="(record) => record._id"
   >

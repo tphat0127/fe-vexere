@@ -9,23 +9,23 @@
     </p>
     <p><MailOutlined /> {{ userProfile.email }}</p>
     <a-divider />
-    <KeyOutlined />
-    <a type="link" @click="model_updatePassword = true">
-      Đổi mật khẩu
-    </a>
+    
+    <a-button type="link" @click="model_updatePassword = true">
+      <KeyOutlined /> Đổi mật khẩu
+    </a-button>
     <a-divider/>
     <a-button type="link">
-      Đổi Avatar
+      <UserOutlined /> Đổi Avatar
     </a-button>
     <a-divider />
-    <ProfileOutlined /> 
+    
     <a-button type="link">
-      Cập nhật hồ sơ
+      <ProfileOutlined /> Cập nhật hồ sơ
     </a-button>
     <a-divider />
-    <ExportOutlined />
+    
     <a-button type="link" @click="handleLogOut">
-      Đăng xuất
+      <ExportOutlined /> Đăng xuất
     </a-button>
   </template>
   <a-modal v-model:visible="model_updatePassword" title="Đổi mật khẩu" :footer="null">

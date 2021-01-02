@@ -2,17 +2,17 @@
   <a-row >
     <a-col :span="12" :offset="6">
       <a-breadcrumb>
-        <a-breadcrumb-item>Home</a-breadcrumb-item>
-        <a-breadcrumb-item><a href="">Application Center</a></a-breadcrumb-item>
-        <a-breadcrumb-item><a href="">Application List</a></a-breadcrumb-item>
-        <a-breadcrumb-item>An Application</a-breadcrumb-item>
+        <a-breadcrumb-item><a href="/">Trang chủ</a></a-breadcrumb-item>
+        <a-breadcrumb-item><a href="">Chyến đi</a></a-breadcrumb-item>
+        <a-breadcrumb-item>{{ searchTripForm.fromProvince }} -
+          {{ searchTripForm.toProvince }}</a-breadcrumb-item>
       </a-breadcrumb>
       <a-row>
         <SearchTrip />
       </a-row>
       <a-row>
         <h2>
-          Ve xe tu {{ searchTripForm.fromProvince }} -
+          Vé xe từ {{ searchTripForm.fromProvince }} -
           {{ searchTripForm.toProvince }}
         </h2>
       </a-row>
@@ -120,7 +120,7 @@
         </a-list-item>
       </a-list>
       <a-row>
-        <h2>Sap xep theo</h2>
+        <h2></h2>
       </a-row>
     </a-col>
     <a-col :span="6" />

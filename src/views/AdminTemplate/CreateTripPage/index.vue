@@ -1,4 +1,5 @@
 <template>
+  <h2>Create new station</h2>
   <a-form
     ref="ruleTripForm"
     :model="createTripForm"
@@ -8,7 +9,11 @@
     layout="horizontal"
   >
     <!-- Diem di -->
-    <a-form-item ref="fromStationId" label="Bến xe khởi hành" name="fromStationId">
+    <a-form-item
+      ref="fromStationId"
+      label="From station"
+      name="fromStationId"
+    >
       <a-select v-model:value="createTripForm.fromStationId">
         <a-select-option v-for="s in listStations" :key="s" :value="s._id">
           {{ s.name }}
@@ -16,7 +21,7 @@
       </a-select>
     </a-form-item>
     <!-- Diem den -->
-    <a-form-item ref="toStationId" label="Bến xe kết thúc" name="toStationId">
+    <a-form-item ref="toStationId" label="To station" name="toStationId">
       <a-select v-model:value="createTripForm.toStationId">
         <a-select-option v-for="s in listStations" :key="s" :value="s._id">
           {{ s.name }}
@@ -24,11 +29,11 @@
       </a-select>
     </a-form-item>
     <!-- Gia ve -->
-    <a-form-item ref="price" label="Giá vé" name="price">
+    <a-form-item ref="price" label="Price" name="price">
       <a-input-number v-model:value="createTripForm.price" />
     </a-form-item>
     <!-- Nha xe -->
-    <a-form-item ref="coach" label="Nhà xe" name="coach">
+    <a-form-item ref="coach" label="Coach name" name="coach">
       <a-select v-model:value="createTripForm.coachId">
         <a-select-option v-for="s in listCoachs" :key="s" :value="s._id">
           {{ s.name }}
@@ -36,10 +41,12 @@
       </a-select>
     </a-form-item>
     <!-- Bat dau -->
-    <a-form-item ref="startTime" label="Giờ khở hành" name="startTime">
-      <a-date-picker 
-        show-time placeholder="Chọn giờ " 
-        @change="handlePickStartTimeChange" @ok="handlePickStartTimeOk" 
+    <a-form-item ref="startTime" label="Start time" name="startTime">
+      <a-date-picker
+        show-time
+        placeholder="Select time "
+        @change="handlePickStartTimeChange"
+        @ok="handlePickStartTimeOk"
       />
     </a-form-item>
     <!-- Submit -->
@@ -49,10 +56,7 @@
         @click="onSubmit"
         :loading="$store.state.trip.loading"
       >
-        Tạo chuyến đi
-      </a-button>
-      <a-button style="margin-left: 10px;" @click="resetForm">
-        Nhập lại
+        Create
       </a-button>
     </a-form-item>
   </a-form>
@@ -68,13 +72,13 @@ export default {
   data() {
     let checkPrice = async (rule, value) => {
       if (!value) {
-        return Promise.reject("Hãy nhập giá vé");
+        return Promise.reject("Please input price");
       }
       if (!Number.isInteger(value)) {
-        return Promise.reject("Giá vé không hợp lệ");
+        return Promise.reject("Price is invalid");
       } else {
         if (value < 0) {
-          return Promise.reject("Giá vé phải lớn hơn 0");
+          return Promise.reject("Price more than 0");
         } else {
           return Promise.resolve();
         }
@@ -94,17 +98,17 @@ export default {
         fromStationId: [
           {
             required: true,
-            message: "Hãy chọn bến xe xuất hành"
-          }
+            message: "Please select from station",
+          },
         ],
         toStationId: [
           {
             required: true,
-            message: "Hãy chọn điểm đến"
-          }
+            message: "Please select to station",
+          },
         ],
-        price: [{ validator: checkPrice, trigger: "change" }]
-      }
+        price: [{ validator: checkPrice, trigger: "change" }],
+      },
     };
   },
   methods: {
@@ -114,20 +118,17 @@ export default {
         .then(() => {
           this.$store.dispatch("actFetchCreateTrip", this.createTripForm);
         })
-        .catch(error => {
+        .catch((error) => {
           console.log("error", error);
         });
     },
-    resetForm() {
-      this.$refs.ruleTripForm.resetFields();
-    },
     handlePickStartTimeChange(startTime, dateString) {
       this.createTripForm.startTime = startTime;
-      console.log('Selected Time: ', startTime);
-      console.log('Formatted Selected Time: ', dateString);
+      console.log("Selected Time: ", startTime);
+      console.log("Formatted Selected Time: ", dateString);
     },
     handlePickStartTimeOk(value) {
-      console.log('onOk: ', value);
+      console.log("onOk: ", value);
       this.createTripForm.startTime = value;
     },
   },
@@ -139,7 +140,7 @@ export default {
     listCoachs() {
       console.log(this.$store.state.coach.data);
       return this.$store.state.coach.data;
-    }
-  }
+    },
+  },
 };
 </script>

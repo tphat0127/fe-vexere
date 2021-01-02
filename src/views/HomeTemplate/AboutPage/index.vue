@@ -1,5 +1,11 @@
 <template>
-  <div>about</div>
+   <a-result title="Đang cập nhật">
+    <template #extra>
+      <a-button type="primary">
+        <router-link to="/">Trang chủ</router-link>
+      </a-button>
+    </template>
+  </a-result>
 </template>
 
 <script>

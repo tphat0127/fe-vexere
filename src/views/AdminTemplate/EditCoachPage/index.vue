@@ -1,37 +1,36 @@
 <template>
   <template v-if="$store.state.coach.loading"><Loader /></template>
-  <a-form
-    v-else
-    ref="ruleCoachForm"
-    :model="editCoachForm"
-    :rules="rules"
-    :label-col="labelCol"
-    :wrapper-col="wrapperCol"
-    layout="horizontal"
-  >
-    <!-- Name -->
-    <a-form-item ref="name" label="Tên xe" name="name">
-      <a-input v-model:value="editCoachForm.name" />
-    </a-form-item>
-    <!-- Seats-->
-    <a-form-item ref="seats" label="Số ghế " name="seats">
-      <a-input-number v-model:value="editCoachForm.seats" />
-    </a-form-item>
+  <template v-else>
+    <h2>Update Coach</h2>
+    <a-form
+      ref="ruleCoachForm"
+      :model="editCoachForm"
+      :rules="rules"
+      :label-col="labelCol"
+      :wrapper-col="wrapperCol"
+      layout="horizontal"
+    >
+      <!-- Name -->
+      <a-form-item ref="name" label="Coach name" name="name">
+        <a-input v-model:value="editCoachForm.name" />
+      </a-form-item>
+      <!-- Seats-->
+      <a-form-item ref="seats" label="Coach seats" name="seats">
+        <a-input-number v-model:value="editCoachForm.seats" />
+      </a-form-item>
 
-    <!-- Submit -->
-    <a-form-item :wrapper-col="{ span: 14, offset: 4 }">
-      <a-button
-        type="primary"
-        @click="onSubmit"
-        :loading="$store.state.coach.loading"
-      >
-        Edit
-      </a-button>
-      <a-button style="margin-left: 10px;" @click="resetForm">
-        Nhập lại
-      </a-button>
-    </a-form-item>
-  </a-form>
+      <!-- Submit -->
+      <a-form-item :wrapper-col="{ span: 14, offset: 4 }">
+        <a-button
+          type="primary"
+          @click="onSubmit"
+          :loading="$store.state.coach.loading"
+        >
+          Edit
+        </a-button>
+      </a-form-item>
+    </a-form>
+  </template>
 </template>
 <script>
 import * as types from "./../../../store/coach/constant";
@@ -63,7 +62,7 @@ export default {
       wrapperCol: { span: 14 },
       editCoachForm: {
         seats: 24,
-        _id: ""
+        _id: "",
       },
       rules: {
         name: [
@@ -86,10 +85,7 @@ export default {
         .catch((error) => {
           console.log("error", error);
         });
-    },
-    resetForm() {
-      this.$refs.ruleCoachForm.resetFields();
-    },
+    }
   },
   computed: {
     coachDetail() {

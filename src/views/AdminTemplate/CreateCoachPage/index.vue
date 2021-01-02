@@ -1,4 +1,5 @@
 <template>
+<h2>Create new coach</h2>
   <a-form
     ref="ruleTripForm"
     :model="createCoachForm"
@@ -23,10 +24,7 @@
         @click="onSubmit"
         :loading="$store.state.coach.loading"
       >
-        Tạo
-      </a-button>
-      <a-button style="margin-left: 10px;" @click="resetForm">
-        Nhập lại
+        Create
       </a-button>
     </a-form-item>
   </a-form>
@@ -36,13 +34,13 @@ export default {
   data() {
     let checkSeats = async (rule, value) => {
       if (!value) {
-        return Promise.reject("Chưa nhập số ghế");
+        return Promise.reject("Please input seats");
       }
       if (!Number.isInteger(value)) {
-        return Promise.reject("Số ghế không hợp lệ");
+        return Promise.reject("Seats is invalid");
       } else {
         if (value < 0) {
-          return Promise.reject("Số ghế phải lớn hơn 0");
+          return Promise.reject("Seats more than 0");
         } else {
           return Promise.resolve();
         }
@@ -76,10 +74,7 @@ export default {
         .catch((error) => {
           console.log("error", error);
         });
-    },
-    resetForm() {
-      this.$refs.ruleTripForm.resetFields();
-    },
+    }
   },
 };
 </script>

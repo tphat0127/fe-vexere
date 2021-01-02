@@ -1,12 +1,11 @@
 <template>
   <router-link to="/admin/stations/create">
-    <a-button>Create</a-button>
+    <a-button type="link">Create new station</a-button>
   </router-link>
   <a-table
     span="4"
     :columns="columns"
     :data-source="data"
-    bordered
     :loading="$store.state.modules.loading"
     :rowKey="record => record._id"
   >

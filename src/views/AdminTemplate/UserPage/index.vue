@@ -1,12 +1,11 @@
 <template>
   <router-link to="/admin/users/create">
-    <a-button>Create</a-button>
+    <a-button type="link">Create new user</a-button>
   </router-link>
   <a-table
     span="4"
     :columns="columns"
     :data-source="data"
-    bordered
     :loading="$store.state.user.loading"
     :rowKey="(record) => record._id"
   >

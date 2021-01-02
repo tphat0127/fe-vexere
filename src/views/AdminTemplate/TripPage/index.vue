@@ -1,12 +1,11 @@
 <template>
   <router-link to="/admin/trips/create">
-    <a-button>Tạo chuyến đi</a-button>
+    <a-button type="link">Create new trip</a-button>
   </router-link>
   <a-table
     span="4"
     :columns="columns"
     :data-source="data"
-    bordered
     :loading="$store.state.trip.loading"
     :rowKey="(record) => record._id"
   >
