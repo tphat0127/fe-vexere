@@ -19,6 +19,10 @@
         <a-input v-model:value="editUserForm.email" />
       </a-form-item>
       <!-- Usertype-->
+      <!-- Email-->
+      <a-form-item ref="password" label="Password " name="password">
+        <a-input v-model:value="editUserForm.password" type="password"/>
+      </a-form-item>
       <a-form-item ref="userType" label="User type " name="userType">
         <a-select v-model:value="editUserForm.userType">
           <a-select-option value="Admin">Admin</a-select-option>
@@ -54,8 +58,25 @@ export default {
         email: "",
         userType: "",
         _id: "",
+        password: ""
       },
-      rules: {},
+      rules: {
+        email: [
+          { required: true, message: "Chưa nhập email", trigger: "blur" },
+          {
+            required: true,
+            message: "Email không hợp lệ ",
+            trigger: "blur",
+            type: "email",
+          },
+        ],
+        fullName: [
+          { required: true, message: "Chưa nhập họ tên", trigger: "blur" },
+        ],
+        password: [
+          { required: true, message: "Chưa nhập mật khẩu", trigger: "blur" },
+        ]
+      },
     };
   },
   methods: {

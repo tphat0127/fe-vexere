@@ -84,6 +84,18 @@ const actions = {
         commit(types.M_COACH_FAILURE, error);
       });
   },
+  actUpdateThumbnail({ commit }, data){
+    commit(types.M_COACH_REQUEST);
+    api
+      .post(`/coaches/${data.id}/update-thumbnail`, data.formData)
+      .then((response) => {
+        console.log(data._id)
+        commit(types.M_COACH_SUCCESS, response.data);
+      })
+      .catch((error) => {
+        commit(types.M_COACH_FAILURE, error);
+      });
+    }
 };
 
 export default { state, mutations, actions };

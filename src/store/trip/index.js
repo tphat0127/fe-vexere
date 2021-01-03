@@ -61,6 +61,18 @@ const actions = {
         commit(types.M_TRIP_FAILURE, error);
       });
   },
+  actFetchEditTrip({ commit }, data) {
+    commit(types.M_TRIP_REQUEST);
+    api
+      .put(`/trips/${data.id}`, data)
+      .then((response) => {
+        commit(types.M_TRIP_SUCCESS, response.data);
+        router.replace("/admin/trips");
+      })
+      .catch((error) => {
+        commit(types.M_TRIP_FAILURE, error);
+      });
+  },
   actFetchDeleteTrip({ commit, dispatch }, id) {
     commit(types.M_TRIP_REQUEST);
     api

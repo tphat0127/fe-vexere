@@ -15,9 +15,6 @@
     <a-button type="link" @click="model_changeAvatar = true"> <UserOutlined /> Đổi Avatar </a-button>
     <a-divider />
 
-    <a-button type="link"> <ProfileOutlined /> Cập nhật hồ sơ </a-button>
-    <a-divider />
-
     <a-button type="link" @click="handleLogOut">
       <ExportOutlined /> Đăng xuất
     </a-button>
@@ -49,7 +46,6 @@ import {
   UserOutlined,
   MailOutlined,
   KeyOutlined,
-  ProfileOutlined,
   ExportOutlined,
 } from "@ant-design/icons-vue";
 export default {
@@ -60,7 +56,6 @@ export default {
     UserOutlined,
     MailOutlined,
     KeyOutlined,
-    ProfileOutlined,
     ExportOutlined,
     UpdatePassword,
     ChangeAvatar,

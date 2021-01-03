@@ -10,6 +10,27 @@
       :wrapper-col="wrapperCol"
       layout="horizontal"
     >
+      <!-- Thumbnail -->
+      <a-form-item ref="thumbnail" label="Thumbnail" name="thumbnail">
+        <a-space size="large">
+          <a-avatar
+            shape="square"
+            :size="64"
+            :src="`${imgUrl}${editCoachForm.thumbnail}`"
+          />
+          <a-upload
+            accept="image/*"
+            list-type="picture"
+            v-model:fileList="fileList"
+            @change="onChangeThumbnail"
+            :customRequest="dummyRequest"
+          >
+            <a-button> Upload </a-button>
+          </a-upload>
+        </a-space>
+      </a-form-item>
+
+      <!-- Seats-->
       <!-- Name -->
       <a-form-item ref="name" label="Coach name" name="name">
         <a-input v-model:value="editCoachForm.name" />
@@ -35,6 +56,8 @@
 <script>
 import * as types from "./../../../store/coach/constant";
 import Loader from "./../../../components/Loader";
+import { imgServer } from "./../../../api";
+import { message } from "ant-design-vue";
 export default {
   created() {
     this.$store.dispatch(
@@ -58,11 +81,14 @@ export default {
       }
     };
     return {
+      fileList: [],
+      imgUrl: imgServer,
       labelCol: { span: 4 },
       wrapperCol: { span: 14 },
       editCoachForm: {
         seats: 24,
         _id: "",
+        thumbnail: "",
       },
       rules: {
         name: [
@@ -85,7 +111,33 @@ export default {
         .catch((error) => {
           console.log("error", error);
         });
-    }
+    },
+    dummyRequest({ info, onSuccess }) {
+      setTimeout(() => {
+        onSuccess("ok");
+        console.log("duumy", info);
+      }, 0);
+    },
+    onChangeThumbnail(info) {
+      if (info.file.status !== "uploading") {
+        //console.log(info.file, info.fileList);
+      }
+      if (info.file.status === "done") {
+        message.success(`Đã thay đổi avatar`);
+        let file = info.fileList[0].originFileObj;
+        const formData = new FormData();
+        const config = { headers: { "content-type": "multipart/form-data" } };
+
+        formData.append("thumbnail", file);
+        this.$store.dispatch("actUpdateThumbnail", {
+          formData: formData,
+          id: this.editCoachForm._id,
+        });
+        console.log(config);
+      } else if (info.file.status === "error") {
+        message.error(`${info.file.name} file upload failed.`);
+      }
+    },
   },
   computed: {
     coachDetail() {

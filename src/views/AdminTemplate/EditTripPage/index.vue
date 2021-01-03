@@ -46,7 +46,6 @@
     <a-form-item ref="startTime" label="Start time" name="startTime">
       <a-date-picker
         show-time
-        :placeholder="editTripForm.startTime"
         @change="handlePickStartTimeChange"
         @ok="handlePickStartTimeOk"
       />
@@ -102,6 +101,7 @@ export default {
         price: "",
         coachId: "",
         startTime: null,
+        id: "",
       },
       rules: {
         fromStationId: [
@@ -125,7 +125,7 @@ export default {
       this.$refs.ruleTripForm
         .validate()
         .then(() => {
-          this.$store.dispatch("actFetchCreateTrip", this.editTripForm);
+          this.$store.dispatch("actFetchEditTrip", this.editTripForm);
         })
         .catch((error) => {
           console.log("error", error);
