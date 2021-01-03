@@ -1,6 +1,6 @@
 import axios from "axios";
 
 export const api = axios.create({
-  baseURL: "http://localhost:5555/api"
+  baseURL: "https://ntp-cybersoft-be.herokuapp.com/api"
 });
-export const imgServer = "http://localhost:5555/images/"
+export const imgServer = "https://ntp-cybersoft-be.herokuapp.com/images/"
