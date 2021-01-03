@@ -5,13 +5,15 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "start": "node server.js"
   },
   "dependencies": {
     "@ant-design/icons": "^4.3.0",
     "ant-design-vue": "^2.0.0-rc.4",
     "axios": "^0.21.0",
     "core-js": "^3.6.5",
+    "express": "^4.17.1",
     "jwt-decode": "^3.1.2",
     "lodash": "^4.17.20",
     "vue": "^3.0.0",
