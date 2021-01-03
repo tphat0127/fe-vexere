@@ -38,8 +38,8 @@
 </template>
 <script>
 import { UserOutlined } from "@ant-design/icons-vue";
-import Login from "./Login";
-import UserProfile from "./UserProfile"
+import Login from "./../Login";
+import UserProfile from "./../UserProfile"
 export default {
   updated() {
     if(!this.isLoggedIn)

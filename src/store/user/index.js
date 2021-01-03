@@ -9,6 +9,7 @@ const state = {
   error: null,
   token: null,
   isLoggedIn: false,
+  userData: null,
 };
 
 const mutations = {
@@ -24,9 +25,26 @@ const mutations = {
   },
   [types.M_USER_FAILURE](state, payload) {
     state.loading = false;
-    state.dataUser = null;
+    state.data = null;
     state.error = payload;
   },
+  ////////////////////
+  [types.M_USER_DATA_REQUEST](state) {
+    state.loading = true;
+    state.userData = null;
+    state.error = null;
+  },
+  [types.M_USER_DATA_SUCCESS](state, payload) {
+    state.loading = false;
+    state.userData = payload;
+    state.error = null;
+  },
+  [types.M_USER_DATA_FAILURE](state, payload) {
+    state.loading = false;
+    state.userData = null;
+    state.error = payload;
+  },
+  //////////////////////
   [types.M_LOGIN_REQUIRED](state) {
     (state.token = null), (state.error = null);
     state.loading = true;
@@ -107,21 +125,21 @@ const actions = {
     const exp = localStorage.getItem("exp");
     const date = new Date();
     if (date.getTime() > exp * 1000) {
-      dispatch("actLogout");
+      dispatch("actUserLogout");
       return;
     }
     setHeader(token);
     commit(types.M_LOGIN_SUCCESS);
   },
   [types.A_FETCH_ME]({ commit }) {
-    commit(types.M_USER_REQUEST);
+    commit(types.M_USER_DATA_REQUEST);
     api
     .get(`/me`)
       .then(response => {
-        commit(types.M_USER_SUCCESS, response.data);
+        commit(types.M_USER_DATA_SUCCESS, response.data);
       })
       .catch(error => {
-        commit(types.M_USER_FAILURE, error);
+        commit(types.M_USER_DATA_FAILURE, error);
       });
   },
   actUpdatePassword({ commit }, data){
@@ -130,6 +148,18 @@ const actions = {
       .patch("/users/update-pwd", data)
       .then((response) => {
         commit(types.M_USER_SUCCESS, response.data);
+      })
+      .catch((error) => {
+        commit(types.M_USER_FAILURE, error);
+      });
+  },
+  actUpdateAvatar({ commit }, data){
+    commit(types.M_USER_REQUEST);
+    api
+      .post("/users/upload-avatar", data)
+      .then((response) => {
+        commit(types.M_USER_SUCCESS, response.data);
+        commit(types.M_USER_DATA_SUCCESS, response.data);
       })
       .catch((error) => {
         commit(types.M_USER_FAILURE, error);

@@ -9,6 +9,9 @@
     :loading="$store.state.trip.loading"
     :rowKey="(record) => record._id"
   >
+    <template #startTime="{ text }">
+      {{ moment(text).format("DD/MM/yyyy hh:mm") }}
+    </template>
     <template #action="{ record }">
       <a-popconfirm
         v-if="data.length"
@@ -26,12 +29,14 @@
   </a-table>
 </template>
 <script>
+import moment from "moment";
 import * as types from "./../../../store/trip/constant";
 export default {
   created() {
     this.$store.dispatch(types.A_FETCH_LIST_TRIP);
   },
   methods: {
+    moment,
     onDelete(id) {
       this.$store.dispatch("actFetchDeleteTrip", id);
     },
