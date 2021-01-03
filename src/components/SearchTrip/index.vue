@@ -37,7 +37,7 @@
             :format="dateFormat"
           />
           <a-button
-            style="width: 15%"
+            style="width: 14%"
             class="btn-size"
             type="danger"
             @click="handleOnClickSearchTrip"
@@ -166,10 +166,10 @@ export default {
 </script>
 <style>
 .ant-input {
-  font-size: 18px;
+  font-size: 15px;
 }
 .btn-size {
-  font-size: 18px;
+  font-size: 15px;
   height: 47px;
 }
 .ant-input-affix-wrapper {
