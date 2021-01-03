@@ -1,5 +1,7 @@
 <template>
-  <template v-if="loading || this.$store.state.coach.loading || this.$store.state.station.loading"><Loader /></template>
+  <template v-if="this.$store.state.trip.loading"><Loader /></template>
+  <template v-else-if="this.$store.state.coach.loading"><Loader /></template>
+  <template v-else-if="this.$store.state.station.loading"><Loader /></template>
   <template v-else>
     <h2>Update Trip</h2>
     <a-form
@@ -69,6 +71,9 @@ import * as types_coach from "./../../../store/coach/constant";
 import * as types_trip from "./../../../store/trip/constant";
 import Loader from "./../../../components/Loader";
 export default {
+  created(){
+    
+  },
   beforeCreate() {
     this.$store.dispatch(types.A_FETCH_LIST_STATION);
     this.$store.dispatch(types_coach.A_FETCH_LIST_COACH);
@@ -157,8 +162,7 @@ export default {
   },
   watch: {
     tripDetail() {
-      this.editTripForm.price = this.tripDetail.price;
-      this.editTripForm.startTime = this.tripDetail.startTime;
+      this.editTripForm = this.tripDetail;
     },
   },
   components: {

@@ -16,9 +16,6 @@
           <SearchTrip />
         </a-row>
       </div>
-      <!-- <button data-edit="link,text" type="button" class="ant-btn banner0-button ant-btn-background-ghost" style="opacity: 1; transform: translate(0px, 0px);">
-                <span>Learn More</span>
-            </button> -->
     </div>
   </div>
 </template>
@@ -39,7 +36,7 @@ export default {
   position: relative;
   text-align: center;
   border-color: #666;
-  background-image: url(https:////static.vexere.com/production/banners/330/12-12__leader-board_new.png);
+  background-image: url(https://wallpapercave.com/wp/wp2568541.jpg);
   background-size: cover;
   background-attachment: fixed;
   background-position: center;

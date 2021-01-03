@@ -17,7 +17,7 @@
             </a-input>
           </a-auto-complete>
           <a-auto-complete
-          style="width: 30%"
+            style="width: 30%"
             :default-value="defaultToValue"
             @select="onSelectToStation"
             :options="options"
@@ -29,7 +29,7 @@
             </a-input>
           </a-auto-complete>
           <a-date-picker
-          style="width: 20%"
+            style="width: 20%"
             show-time
             @change="handlePickStartTimeChange"
             @ok="handlePickStartTimeOk"
@@ -37,7 +37,7 @@
             :format="dateFormat"
           />
           <a-button
-          style="width: 15%"
+            style="width: 15%"
             class="btn-size"
             type="danger"
             @click="handleOnClickSearchTrip"
@@ -50,6 +50,8 @@
   </a-row>
 </template>
 <script>
+import { Modal } from "ant-design-vue";
+import { h } from "vue";
 import * as types from "./../../store/modules/constant";
 import * as typesTrip from "./../../store/trip/constant";
 import { EnvironmentFilled } from "@ant-design/icons-vue";
@@ -66,7 +68,7 @@ export default {
       searchTripForm: {
         fromProvince: "",
         toProvince: "",
-        startTime: null,
+        startTime: moment().format("DD/MM/YYYY"),
       },
       isOpen: {
         selectFromStation: null,
@@ -87,6 +89,32 @@ export default {
   },
   methods: {
     handleOnClickSearchTrip() {
+      let storageTrip = JSON.parse(localStorage.getItem("tripSearchData"));
+      if (storageTrip !== null) {
+        if (storageTrip.fromProvince == "") {
+          Modal.info({
+            title: "Bạn chưa chọn điểm đi",
+            content: h("div", {}, [h("p", "Cần chọn tỉnh thành")]),
+            onOk() {},
+          });
+          return;
+        }
+        if (storageTrip.toProvince == "") {
+           Modal.info({
+            title: "Bạn chưa chọn điểm đến",
+            content: h("div", {}, [h("p", "Cần chọn tỉnh thành")]),
+            onOk() {},
+          });
+          return;
+        }
+      } else {
+         Modal.info({
+            title: "Bạn chưa chọn điểm đi và điểm đến",
+            content: h("div", {}, [h("p", "Cần chọn điểm đi và điểm đến")]),
+            onOk() {},
+          });
+          return;
+      }
       this.$store.dispatch(typesTrip.A_FETCH_SEARCH_TRIP);
       this.$router.push("/result");
     },

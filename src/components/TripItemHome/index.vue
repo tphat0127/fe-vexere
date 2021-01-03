@@ -52,7 +52,7 @@
       </a-row>
     </a-col>
     <a-col :span="4">
-      <b style="color: blue; font-size: 24px">{{ trip.price }} d</b>
+      <b style="color: blue; font-size: 24px">{{ trip.price }} đ</b>
       <a-button 
         :type="isShowBookForm == false ? `danger` : `success`" 
         @click="showConfirm(trip._id)"

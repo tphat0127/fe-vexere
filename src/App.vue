@@ -5,7 +5,7 @@
   export default {
     created() {
       this.$store.dispatch("actTryLogin");
-    }
+    },
   }
 </script>
 <style>

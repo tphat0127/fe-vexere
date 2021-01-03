@@ -5,7 +5,7 @@
 				<template #cover>
 				<img
 					alt="example"
-					src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
+					src="https://picsum.photos/200"
 				/>
 				</template>
 				<a-card-meta :description="station.address">

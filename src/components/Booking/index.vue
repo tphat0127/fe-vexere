@@ -61,7 +61,7 @@
       <div v-else-if="current == 1">
         <div v-if="isLoggedIn">
           <a-divider>Thanh toán</a-divider>
-          ĐÃ THANH TOÁN
+          Vui lòng thanh toán tại nơi nhận vé trước khi xuất phát!
         </div>
         <div v-else>
           <a-divider>Bạn cần đăng nhập để tiếp tục</a-divider>
@@ -70,6 +70,8 @@
       </div>
       <div v-else>
         <h3>Đặt vé thành công</h3>
+        Amazing! good job<br/>
+        Thông tin chi tiết chuyến đi đã gửi đến mail của bạn ♥
       </div>
     </div>
     <a-row class="steps-action" type="flex" justify="space-between">
@@ -124,10 +126,10 @@ export default {
       current: 0,
       steps: [
         {
-          title: "Chọn chỗ",
+          title: "Chọn ghế",
         },
         {
-          title: "Nhập thông tin",
+          title: "Xác nhận",
         },
         {
           title: "Thành công",

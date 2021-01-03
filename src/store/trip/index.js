@@ -64,7 +64,7 @@ const actions = {
   actFetchEditTrip({ commit }, data) {
     commit(types.M_TRIP_REQUEST);
     api
-      .put(`/trips/${data.id}`, data)
+      .put(`/trips/${data._id}`, data)
       .then((response) => {
         commit(types.M_TRIP_SUCCESS, response.data);
         router.replace("/admin/trips");
