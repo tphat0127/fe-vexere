@@ -1,7 +1,4 @@
 <template>
-  <router-link to="/admin/tickets/create">
-    <a-button type="link">Create new ticket</a-button>
-  </router-link>
   <a-table
     span="4"
     :columns="columns"
@@ -22,11 +19,6 @@
       >
         <a-button type="danger">Delete</a-button>
       </a-popconfirm>
-
-      <a-divider type="vertical" />
-      <router-link :to="`/admin/tickets/${record._id}/edit`">
-        <a-button>Edit</a-button>
-      </router-link>
     </template>
   </a-table>
 </template>
